@@ -1,5 +1,56 @@
 # QuizzyLinx
 
+## Latest Setup
+
+Working with ChatGPT, we experienced issues with openssl and credential management, here is the current script:
+
+```
+
+#!/bin/bash
+
+# Create a log file for debugging
+LOGFILE="/var/log/user-data.log"
+exec > $LOGFILE 2>&1
+
+echo "Starting user-data script..."
+
+# Set the HOME variable for ec2-user
+export HOME="/home/ec2-user"
+
+# Update and install necessary packages
+sudo yum update -y
+sudo yum install -y git
+
+# Install code-server
+echo "Installing code-server..."
+curl -fsSL https://code-server.dev/install.sh | sh
+
+# Ensure code-server is installed
+if command -v code-server >/dev/null 2>&1; then
+  echo "code-server installed successfully"
+else
+  echo "code-server installation failed"
+fi
+
+# Start code-server on port 8080
+echo "Starting code-server on port 8080..."
+sudo -u ec2-user code-server --bind-addr 0.0.0.0:8080 &
+
+# Retrieve public IP and log it correctly
+PUBLIC_IP=$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)
+if [ -z "$PUBLIC_IP" ]; then
+  echo "Failed to retrieve public IP"
+else
+  echo "Access code-server at http://$PUBLIC_IP:8080"
+fi
+
+echo "User-data script completed."
+
+```
+
+
+
+
 ## EC2 Instance Setup for code-server
 
 1. **Create an EC2 Instance**:
