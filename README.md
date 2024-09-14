@@ -122,7 +122,7 @@ This setup strikes a balance between security and convenience while allowing you
 
 ---
 
-## Latest Setup 9/13
+## First version script 9/14
 
 Working with ChatGPT, we experienced issues with openssl and credential management, here is the current script:
 
@@ -173,7 +173,7 @@ echo "User-data script completed."
 
 
 
-## EC2 Instance Setup for code-server
+## EC2 Instance Setup for code-server (manual 9/13)
 
 1. **Create an EC2 Instance**:
    - **Instance Type**: t2.micro (sufficient for this project)
