@@ -1,5 +1,17 @@
 # QuizzyLinx (with assistance from ChatGPT)
 
+
+# command to download docker-compose once in code-server
+
+```bash
+
+
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+```
+
+
 # updated script to have code-server run on every start (9/15)
 
 ```bash
