@@ -1,0 +1,13 @@
+{
+    "name": "backend",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "dependencies": {},
+    "devDependencies": {},
+    "scripts": {
+      "dev": "node server.js"
+    },
+    "author": "",
+    "license": "ISC"
+  }

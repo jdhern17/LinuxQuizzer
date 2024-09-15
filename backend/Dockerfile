@@ -4,17 +4,17 @@ FROM node:16-alpine
 # Set the working directory inside the container
 WORKDIR /app
 
-# Check if package.json exists, and if not, create one
-RUN [ ! -f "package.json" ] && npm init -y || echo "package.json exists"
+# Copy the empty package.json file into the container
+COPY package.json .
+
+# Install dependencies (none for now since package.json is empty)
+RUN npm install || echo "No dependencies to install yet"
 
 # Copy the rest of the application files
 COPY . .
 
-# Install dependencies only if package.json exists
-RUN if [ -f "package.json" ]; then npm install; fi
-
 # Expose the backend port
 EXPOSE 4000
 
-# Start the backend server
+# Start the backend server (this will run once your backend is set up)
 CMD ["npm", "run", "dev"]
