@@ -128,3 +128,13 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Docker
+**/Dockerfile*
+**/docker-compose*.yml
+
+# MongoDB
+/data/db
+
+# Ignore .env files
+.env
