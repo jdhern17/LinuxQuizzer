@@ -1,5 +1,7 @@
 # QuizzyLinx (with assistance from ChatGPT)
 
+# moved user-data to its own file (./user-data.sh) for formatting/encoding issues (9/16)
+
 
 # command to download docker-compose once in code-server
 
