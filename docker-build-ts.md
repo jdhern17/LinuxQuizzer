@@ -24,6 +24,12 @@ sudo systemctl enable sysstat
 sudo systemctl start sysstat
 ```
 
+Run sar in the background:
+
+```bash
+sar -u 5 > /home/ec2-user/system_performance.log &
+```
+
 ### 3. Verify `sysstat` is Running
 To make sure the service is running and collecting data, we checked its status:
 
@@ -34,8 +40,21 @@ sudo systemctl status sysstat
 We also verified that `sar` was working by checking the performance logs:
 
 ```bash
-sar
+ls /var/log/sa/
 ```
+
+You should see files named saXX:
+
+```bash
+sa01 sa02 sa03
+```
+
+You can manually check CPU usage collection 1 every 3 intervals with:
+
+```bash
+sar -u 1 3
+```
+
 
 ### 4. Running `docker-compose up --build`
 While `sysstat` was running, we attempted the `docker-compose up --build` command with logging to capture potential issues:
