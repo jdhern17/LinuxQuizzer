@@ -1,5 +1,5 @@
 # Use the Node.js official alpine image for a smaller footprint
-FROM node:16-alpine
+FROM node:lts-alpine
 
 # Set the working directory inside the container
 WORKDIR /app
