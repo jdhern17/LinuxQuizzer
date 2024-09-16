@@ -1,6 +1,3 @@
-Here's a Markdown file capturing the troubleshooting steps with `sysstat` and `sar`:
-
-```markdown
 # Docker Compose Troubleshooting with `sar` and `sysstat`
 
 ## Problem
@@ -73,6 +70,3 @@ By using `sar` and `sysstat`, we were able to monitor the system's performance d
 
 ### Future Use
 If you encounter performance issues in the future, follow these steps to reinstall and use `sysstat` and `sar` for monitoring. Simply re-enable `sysstat` if needed for monitoring performance.
-```
-
-This Markdown file will help you refer back to the steps taken during the troubleshooting process if any similar performance issues arise in the future.
