@@ -1,7 +1,7 @@
 function App() {
   return (
     <div className="App">
-      <h1>System Check Dashboard</h1>
+      <h1>System Check Dashboard from container</h1>
       {/* You'll add your charts and quiz components here */}
     </div>
   );
