@@ -29,6 +29,14 @@ sudo yum install -y nodejs
 
 ```
 
+5. **Setup env for dev**
+
+```
+HOST=0.0.0.0
+PORT=3000
+REACT_APP_PUBLIC_URL=http://<EC2-IP>:3000
+```
+
 ## Security Measures
 
 We have implemented the following security measures:
