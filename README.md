@@ -15,14 +15,16 @@ This guide outlines how to set up an EC2 instance (currently t3.small) running `
 
 ```bash
 sudo curl -L "https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-
+```
+```bash
 sudo chmod +x /usr/local/bin/docker-compose
 
 ```
 
 ```bash
 curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -
-
+```
+```bash
 sudo yum install -y nodejs
 
 ```
