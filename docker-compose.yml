@@ -20,6 +20,7 @@ services:
       - "4000:4000"
     volumes:
       - ./backend:/app
+      - /app/node_modules
     environment:
       MONGO_URL: mongodb://db:27017/mydb
     depends_on:
