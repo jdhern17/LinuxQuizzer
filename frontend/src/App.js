@@ -1,60 +1,68 @@
-// Import necessary components from react-chartjs-2 and chart.js
 import React from 'react';
-import { Line } from 'react-chartjs-2';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+import { useQuery, gql } from '@apollo/client';
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
-// Register the required components for Chart.js to work in React
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(ArcElement, Tooltip, Legend);
+
+const GET_SYSTEM_STATS = gql`
+  query GetSystemStats {
+    getSystemStats {
+      cpuUsage
+      memoryUsage
+      activeProcesses {
+        name
+        cpu
+        memory
+      }
+    }
+  }
+`;
 
 function App() {
-  // Create the data and options for the chart
-  const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  const { loading, error, data } = useQuery(GET_SYSTEM_STATS);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  // Prepare data for the chart
+  const chartData = {
+    labels: data.getSystemStats.activeProcesses.map((proc) => proc.name),
     datasets: [
       {
-        label: 'Sample Dataset',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1,
+        label: 'CPU Usage (%)',
+        data: data.getSystemStats.activeProcesses.map((proc) => proc.cpu),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(255, 206, 86, 0.6)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+        ],
+        borderWidth: 1,
       },
     ],
-  };
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Sample Line Chart',
-      },
-    },
   };
 
   return (
     <div className="App">
       <h1>System Check Dashboard</h1>
-      <Line data={data} options={options} />
+      <p>CPU Usage: {data.getSystemStats.cpuUsage}%</p>
+      <p>Memory Usage: {data.getSystemStats.memoryUsage}%</p>
+      <h2>Active Processes:</h2>
+      <ul>
+        {data.getSystemStats.activeProcesses.map((process, index) => (
+          <li key={index}>
+            {process.name}: CPU {process.cpu}% - Memory {process.memory}%
+          </li>
+        ))}
+      </ul>
+
+      {/* Chart.js pie chart for CPU usage */}
+      <Pie data={chartData} />
     </div>
   );
 }
