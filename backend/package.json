@@ -3,11 +3,14 @@
     "version": "1.0.0",
     "description": "",
     "main": "server.js",
-    "dependencies": {},
-    "devDependencies": {},
+    "dependencies": {
+        "apollo-server-express": "^3.13.0",
+        "express": "^4.21.0",
+        "graphql": "^16.9.0"
+    },
     "scripts": {
-      "dev": "node server.js"
+        "dev": "node server.js"
     },
     "author": "",
     "license": "ISC"
-  }
+}
