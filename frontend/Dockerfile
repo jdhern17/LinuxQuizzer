@@ -4,11 +4,11 @@ FROM node:lts-alpine
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the empty package.json file into the container
-COPY package.json .
+# Copy the package.json and package-lock.json into the container
+COPY package.json package-lock.json ./
 
-# Install dependencies (none for now since package.json is empty)
-RUN npm install || echo "No dependencies to install yet"
+# Install dependencies
+RUN npm install
 
 # Copy the rest of the application files
 COPY . .
@@ -16,5 +16,5 @@ COPY . .
 # Expose the frontend port
 EXPOSE 3000
 
-# Start the React app (this will run once your app is built)
+# Start the React app
 CMD ["npm", "start"]
