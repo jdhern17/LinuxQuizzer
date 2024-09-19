@@ -32,7 +32,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 5. **Setup env for dev**
 
 ```
-EC2_IP=<EC2-IP-here>
+REACT_APP_EC2_IP=<EC2-IP-here>
 ```
 
 ## Security Measures

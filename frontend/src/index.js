@@ -4,7 +4,7 @@ import App from './App';
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from '@apollo/client';
 
 const httpLink = new HttpLink({
-  uri: 'http://' + process.env.EC2_IP + ':4000/graphql', // Use environment variable for backend URL
+  uri: 'http://' + process.env.REACT_APP_EC2_IP + ':4000/graphql', // Use environment variable for backend URL
 });
 
 const client = new ApolloClient({
