@@ -21,7 +21,7 @@ const GET_SYSTEM_STATS = gql`
 
 function App() {
   const { loading, error, data } = useQuery(GET_SYSTEM_STATS);
-
+  
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 

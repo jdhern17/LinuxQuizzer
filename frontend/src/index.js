@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, from } from '@apollo/client';
+
+const httpLink = new HttpLink({
+  uri: 'http://' + process.env.EC2_IP + ':4000/graphql', // Use environment variable for backend URL
+});
 
 const client = new ApolloClient({
-  uri: 'http://backend:4000/graphql', // This is where your backend is running
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({ addTypename: false }),
+  link: from([httpLink]),  // Set up Apollo client link
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

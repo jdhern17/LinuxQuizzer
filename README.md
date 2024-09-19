@@ -2,7 +2,7 @@
 
 ## Daily Build
 
-This guide outlines how to set up an EC2 instance (currently t3.small) running `code-server` with **HTTPS**, a **daily rotating password**, and restricted access to your personal IP address. This setup leverages a **self-signed certificate** to secure traffic and ensures only authorized users can access the server.
+This guide outlines how to set up an EC2 instance (currently t3.medium) running `code-server` with **HTTPS**, a **daily rotating password**, and restricted access to your personal IP address. This setup leverages a **self-signed certificate** to secure traffic and ensures only authorized users can access the server.
 
 1. **Create EC2 Instance in AWS**
 
@@ -32,9 +32,7 @@ sudo chmod +x /usr/local/bin/docker-compose
 5. **Setup env for dev**
 
 ```
-HOST=0.0.0.0
-PORT=3000
-REACT_APP_PUBLIC_URL=http://<EC2-IP>:3000
+EC2_IP=<EC2-IP-here>
 ```
 
 ## Security Measures
