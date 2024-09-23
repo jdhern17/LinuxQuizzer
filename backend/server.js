@@ -1,5 +1,6 @@
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
+const fetch = require('node-fetch');
 
 // Type definitions (schema)
 const typeDefs = gql`
@@ -21,18 +22,45 @@ const typeDefs = gql`
 `;
 
 // Resolvers to return dummy data
+// const resolvers = {
+//   Query: {
+//     getSystemStats: () => ({
+//       cpuUsage: 45,
+//       memoryUsage: 60,
+//       activeProcesses: [
+//         { name: 'Process1', cpu: 20, memory: 30 },
+//         { name: 'Process2', cpu: 25, memory: 15 },
+//       ],
+//     }),
+//   },
+// };
+
+
+// Resolvers updated to pull from dummy container
 const resolvers = {
   Query: {
-    getSystemStats: () => ({
-      cpuUsage: 45,
-      memoryUsage: 60,
-      activeProcesses: [
-        { name: 'Process1', cpu: 20, memory: 30 },
-        { name: 'Process2', cpu: 25, memory: 15 },
-      ],
-    }),
+    getSystemStats: async () => {
+      try {
+        // Make a request to the dummy container's /stats endpoint
+        const response = await fetch('http://dummy:3001/stats');
+        const data = await response.json();
+
+        // Destructure the response data to match GraphQL schema
+        const { cpuUsage, memoryUsage, activeProcesses } = data;
+        
+        return {
+          cpuUsage,
+          memoryUsage,
+          activeProcesses,
+        };
+      } catch (error) {
+        console.error('Error fetching system stats:', error);
+        throw new Error('Failed to fetch system stats');
+      }
+    },
   },
 };
+
 
 // Initialize Express and ApolloServer
 const app = express();
