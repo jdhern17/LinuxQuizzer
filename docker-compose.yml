@@ -36,6 +36,12 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - db_data:/data/db
+  dummy:
+    build:
+      context: ./dummy
+    ports:
+      - "3001:3001"
 
 volumes:
   db_data:
+  
