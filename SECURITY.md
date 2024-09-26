@@ -35,25 +35,25 @@ Security Controls are often classified as Physical, Administrative and Technical
 
 - Why Defense-in-Depth (DiD)? Why Naviant?
 
-The Defense-in-Depth (DiD) model, combined with the OWASP Top 10 Web Application Risks, strikes the right balance between security-first actionable technical measures and high-level security practices incorporating the application's ecosystem. Naviant is primarily a business consulting firm, its cybersecurity recommendations offer a solid framework for implementing DiD in cloud-based environments. While some implementations of DiD exclude critical policy and organizational considerations, their model effectively integrates AWS's Shared Responsibility Model. The framework[outlined here](https://naviant.com/wp-content/uploads/2021/03/cloud-ebook-defense-in-depth-small.pdf) serves as a practical guide that can evolve alongside the application.
+The Defense-in-Depth (DiD) model, combined with the OWASP Top 10 Web Application Risks, strikes the right balance between security-first actionable technical measures and high-level security practices incorporating the application's ecosystem. Naviant is primarily a business consulting firm, its cybersecurity recommendations offer a solid framework for implementing DiD in cloud-based environments. While some implementations of DiD exclude critical policy and organizational considerations, their model effectively integrates AWS's Shared Responsibility Model. The framework [outlined here](https://naviant.com/wp-content/uploads/2021/03/cloud-ebook-defense-in-depth-small.pdf) serves as a practical guide that can evolve alongside the application.
 
 ---
 
 ## Defense-in-Depth Model
-
 | Layer | Description |
 |-------|-------------|
-| **Layer 1: Policies, Procedures, and Awareness** | Ensuring security awareness and best practices, including certificates and training completed in preparation for building the system. |
-| **Layer 2: Physical Security** | AWS data center physical security measures. |
-| **Layer 3: Perimeter Defense** | AWS security groups and firewall settings to restrict external access. |
-| **Layer 4: Internal Network Security** | Intra-container communication and Docker’s internal networking. |
-| **Layer 5: Host Security** | The use of Docker containers, with focus on securing the backend and dummy containers. |
-| **Layer 6: Application Security** | Implementing server-side validation, rate-limiting, disabling GraphQL introspection, and securing the MongoDB database. |
-| **Layer 7: Data Security** | Ensuring data encryption, integrity, and access controls. |
+| **Layer 1: Policies, Procedures, and Awareness** | Establishes organizational security policies, employee training, and awareness of security protocols to minimize human error. |
+| **Layer 2: Physical Security** | Physical controls like surveillance, locked server rooms, and guards to prevent unauthorized access to hardware. |
+| **Layer 3: Perimeter Defense** | Utilizes firewalls, penetration testing, SIEM and network security controls to protect against external threats. |
+| **Layer 4: Internal Network Security** | Secures communication within internal networks, focusing on sensitive data isolation, high availability, network segmentation and traffic monitoring. |
+| **Layer 5: Host Security** | Protects the operating system and virtualized infrastructure from unauthorized access and vulnerabilities with steps like regular patching, removing unnecessary services and enforcing least privilege (e.g. sudo restrictions).
+| **Layer 6: Application Security** | Implements security practices like input validation, secure coding, logging and regular patching to mitigate software vulnerabilities. |
+| **Layer 7: Data Security** | Ensures the confidentiality, integrity, and availability of data through encryption, access controls, and backups.  |
 
-### Reference:
-- [Navian's Defense-in-Depth PDF](your-link-here)
-
+### Sources:
+- [Naviant - Defense-in-Depth Model](https://naviant.com/wp-content/uploads/2021/03/cloud-ebook-defense-in-depth-small.pdf)
+- [OWASP Top 10](https://owasp.org/www-project-top-ten/)
+- [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework)
 ---
 
 ## Layer 1: Policies, Procedures, and Awareness
