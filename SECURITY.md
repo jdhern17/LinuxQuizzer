@@ -17,22 +17,25 @@
 
 ## Introduction
 
-This project follows a security approach modeled after the  **Defense-in-Depth (DiD)** model, applying layered security measures across all layers of the tech stack. The DiD model is referenced from Naviant’s cybersecurity recommendations, and closely aligns with AWS’s Shared Responsibility Model for cloud security.
-
+This project implements a security-first approach based on the  **Defense-in-Depth (DiD)** model, applying layered security measures across the full tech stack. Using Naviant's cybersecurity recommendations [linked here](https://naviant.com/resource/defense-in-depth-7-key-layers-of-cloud-security/), this approach is also aligned with AWS’s Shared Responsibility Model for cloud security. The goal of this document is to provide transparency about the security measures integrated throughout the application lifecycle and to offer a platform for collaborative feedback and continuous improvement.
 
 ## Theoretical Framework
 
 - Why not OWASP?
 
-The Open Web Application Security Project (OWASP) is a non-profit that provides a framework for the Top 10 Web Application Risks for assessing the security of applications exposed on the World Wide Web. These threats include cross-site scripting (XSS), 
+The Open Web Application Security Project (OWASP) provides essential guidance for web application security with the Top 10 Web Application Risks ncluding threats like cross-site scripting (XSS), broken authentication and sensitive data exposure. While OWASP is a valuable reference for security the application layer, it focuses specifically on web application vulnerabilities and doesn't provide a multi-layer security framework across the entire tech stack. The DiD model, on the other hand, extends beyond the application layer to ensure security is addressed across infrastructure, network and cloud environments.the cloud.
 
 - Why not NIST CSF?
+
+NIST's (National Institute of Standards and Technology) Cybersecurity Framework (CSF) is US government-backed and adopted for managing cybersecurity at a strategic organizational level in public and private sectors. While highly comprehensive for identifying, detecting and responding to risks, it is more focused on organizational security management than practical implementation of security controls during the development of cloud-based applications. The DiD model is a better fit for this project, as it offers technical guidance throughout the development process.o security-first development.
+
 - Why not Security Control Types?
-- Why Defense-in-Depth (DiD)? 
-- Why Naviant?
 
+Security Controls are often classified as Physical, Administrative and Technical measures. While these are foundational categories for protecting a system, these can be too board to guide technical security in a development project.
 
+- Why Defense-in-Depth (DiD)? Why Naviant?
 
+The Defense-in-Depth (DiD) model, combined with the OWASP Top 10 Web Application Risks, strikes the right balance between security-first actionable technical measures and high-level security practices incorporating the application's ecosystem. Naviant is primarily a business consulting firm, its cybersecurity recommendations offer a solid framework for implementing DiD in cloud-based environments. While some implementations of DiD exclude critical policy and organizational considerations, their model effectively integrates AWS's Shared Responsibility Model. The framework[outlined here](https://naviant.com/wp-content/uploads/2021/03/cloud-ebook-defense-in-depth-small.pdf) serves as a practical guide that can evolve alongside the application.
 
 ---
 
@@ -98,6 +101,15 @@ This focuses on securing the external perimeter of the system, ensuring that acc
 - **Rate-Limiting**: Implements rate limiting on all API requests to prevent abuse.
 - **Disabling Introspection in Production**: Once deployed, GraphQL introspection is disabled to prevent attackers from discovering API structure.
 
+- use OWASP here:
+
+add this:
+
+Protection Against DOM-based XSS
+
+This application is built using React, which provides built-in protections against DOM-based XSS attacks, aligning with the OWASP Top 10 vulnerabilities list. React automatically escapes dynamic content in JSX, preventing malicious scripts from being injected into the DOM. Additionally, the use of dangerouslySetInnerHTML is minimized and, when necessary, any raw HTML input is manually sanitized to mitigate potential security risks. This approach helps protect against client-side XSS vulnerabilities, which are a critical area highlighted by OWASP.
+
+
 ---
 
 ## Layer 7: Data Security
@@ -105,6 +117,13 @@ This focuses on securing the external perimeter of the system, ensuring that acc
 - **No External User Data**: This application does not handle or store external user data, reducing the attack surface significantly.
 - **Encryption**: Data transfers between the frontend and backend are secured using HTTPS (via Let’s Encrypt SSL certificates).
 - **MongoDB Security**: MongoDB is secured with authentication and SSL, ensuring that even internal application data is protected.
+
+
+---
+
+## Acknowledgements
+
+This README was developed with the assistance of OpenAI’s ChatGPT for verification of information, grammar, and content.
 
 ---
 
