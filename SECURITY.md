@@ -61,6 +61,9 @@ The Defense-in-Depth (DiD) model, combined with the OWASP Top 10 Web Application
 This section ensures that all security processes are understood and followed throughout the development cycle. The following items highlight key areas under this layer:
 - **Certificates and Training**: I have completed several certifications and training in AWS and system security, ensuring foundational awareness before building this system.
 - **Pre-Development Security Checklist**: Every stage of the development was designed with security-first principles.
+MFA IAM during build?
+password on admin account?
+password on code-server?
 
 ---
 
