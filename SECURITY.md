@@ -74,8 +74,13 @@ This section ensures that all security processes are understood and followed thr
 
 ## Layer 2: Physical Security
 
-AWS handles the physical security of its data centers, ensuring high standards such as ISO/IEC 27001 and SOC 2 compliance.
-- **Security Measures**: Includes multi-factor authentication, controlled physical access, and constant monitoring at AWS data centers.
+This section reviews physical security measure compliance is considered during development and practice day-to-day work involved.
+
+- **AWS Data Center Security**: AWS data centers adhere to best-in-class physical security measures, including security guards, access controls, surveillance, and environmental safeguards for secure infrastructure hosting.
+
+- **Device Security Practices**: While working remotely, devices are not left unattended and are secured with password authentication to prevent unauthorized physical access.
+
+- **Private Workspace**: Work for this project has been conducted in a secure, private setting to prevent unauthorized physical access or viewing of sensitive information. This ensures that confidential data is not exposed in shared or public environments.
 
 ---
 
