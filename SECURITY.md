@@ -86,9 +86,23 @@ This section reviews physical security measure compliance is considered during d
 
 ## Layer 3: Perimeter Defense
 
-This focuses on securing the external perimeter of the system, ensuring that access points are tightly controlled.
-- **AWS Security Groups**: Applied to restrict incoming traffic to the necessary ports (e.g., 4000 for the backend API, 3000 for the frontend).
-- **Firewall**: Ensuring only legitimate IPs have access during development and production.
+Perimeter defense typically refers to the boundary between a secure system and an unsecure external environment (ex. the public Internet).
+
+### Development Server Perimeter
+
+For the development server, perimeter is being defined as protections to the server itself. 
+
+- **AWS Security Groups**: AWS Security Groups have been applied that restrict incoming traffic to the necessary ports (ex. 4000 for the backend API, 3000 for the frontendj). Traffic during development has also been restricted to the public IPs of the development team's LANs.
+
+### Cloud-Hosted Application Perimeter
+
+For the sake of the application, perimeter is defined as the edge protections for AWS cloud services.
+
+- **CloudFront**: AWS CloudFront will serve as a shield for incoming traffic, using HTTPS for secure communication as well as following content delivery policies and geo-restrictions.
+
+- **S3**: S3 bucket policies and access controls will restrict access to specific origins (ex. CloudFront).
+
+- **API Gateway**: API Gateway will ensure that incoming requests are controlled via rate limiting and throttling.
 
 ---
 
