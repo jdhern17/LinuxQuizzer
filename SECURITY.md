@@ -92,7 +92,7 @@ Perimeter defense typically refers to the boundary between a secure system and a
 
 For the development server, perimeter is being defined as protections to the server itself. 
 
-- **AWS Security Groups**: AWS Security Groups have been applied that restrict incoming traffic to the necessary ports (ex. 4000 for the backend API, 3000 for the frontendj). Traffic during development has also been restricted to the public IPs of the development team's LANs.
+- **AWS Security Groups**: AWS Security Groups have been applied that restrict incoming traffic to the necessary ports (ex. 4000 for the backend API, 3000 for the frontend). Traffic during development has also been restricted to the public IPs of the development team's LANs.
 
 ### Cloud-Hosted Application Perimeter
 
