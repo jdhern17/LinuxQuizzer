@@ -1,6 +1,6 @@
 # Security-First Architecture for Quinux App
-
 ## Table of Contents
+
 1. [Introduction](#introduction)
 2. [Defense-in-Depth Model](#defense-in-depth-model)
 3. [Layer 1: Policies, Procedures, and Awareness](#layer-1-policies-procedures-and-awareness)
@@ -59,11 +59,16 @@ The Defense-in-Depth (DiD) model, combined with the OWASP Top 10 Web Application
 ## Layer 1: Policies, Procedures, and Awareness
 
 This section ensures that all security processes are understood and followed throughout the development cycle. The following items highlight key areas under this layer:
-- **Certificates and Training**: I have completed several certifications and training in AWS and system security, ensuring foundational awareness before building this system.
-- **Pre-Development Security Checklist**: Every stage of the development was designed with security-first principles.
-MFA IAM during build?
-password on admin account?
-password on code-server?
+
+
+- **Certificates and Training**: I have completed certifications and training in AWS and system security, ensuring foundational awareness before building this system. This includes the AWS Cloud Practitioner Certificate, edX CyberSecurity Bootcamp, Harvard Full-Stack Coding Bootcamp and enrolled in AWS Developer Associate and AWS DevOps Professional Certificate study programs.
+
+
+- **Pre-Development Security Checklist**: Every stage of the development was designed with security-first principles. This includes using Multi-Factor Authentication to log into AWS when accessing EC2 instances for development.
+
+- **Avoiding Unsecure Public Wi-Fi**: Accessing AWS from unsecured public Wi-Fi such as airports and cafés was avoided entirely. Some risk was introduced with accessing AWS from Airbnbs but it was determined to be mitigated with other measures put in place.
+
+- **Security Documentation**: This SECURITY.md file during early development phases ensures that security considerations are embedded into the development lifecycle. This living document reflects a commitment to continuous security monitoring and organizational awareness, aligning with best practices for ensuring evolving threats are addressed throughout the project.
 
 ---
 
@@ -133,3 +138,10 @@ This README was developed with the assistance of OpenAI’s ChatGPT for verifica
 ## Conclusion
 
 This document outlines how the **Defense-in-Depth** model has been applied to each layer of this project’s security architecture. From policies and procedures to data protection, every layer is fortified to protect against modern threats. By aligning with industry standards and best practices, this application demonstrates a comprehensive approach to security, ensuring a secure environment for future deployments.
+
+---
+
+## Additional Considerations
+
+password on admin account?
+password on code-server?
