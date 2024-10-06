@@ -165,6 +165,26 @@ Protection Against DOM-based XSS
 
 This application is built using React, which provides built-in protections against DOM-based XSS attacks, aligning with the OWASP Top 10 vulnerabilities list. React automatically escapes dynamic content in JSX, preventing malicious scripts from being injected into the DOM. Additionally, the use of dangerouslySetInnerHTML is minimized and, when necessary, any raw HTML input is manually sanitized to mitigate potential security risks. This approach helps protect against client-side XSS vulnerabilities, which are a critical area highlighted by OWASP.
 
+---
+
+### **Layer 6: Application Security**
+
+- **MERN Stack Overview**: The MERN (MongoDB, Express.js, React, Node.js) stack is a commonly used technology stack in web development, known for its open-source collaboration and established security practices. This ensures that applications built with MERN benefit from high-quality, community-vetted security measures. The stack’s components are frequently updated to address emerging security concerns.
+  
+- **Logging**: Given the low-traffic nature of this project, logging will not be a major integration at this time. However, the MERN stack provides various logging features (e.g., Winston, Morgan) should they be required in future iterations.
+
+- **Authorization and Authentication**: Given the low sensitivity of the data (container statistics, at times dummy statistics), the current iteration of the project will not include authentication or authorization mechanisms. If deemed necessary, the MERN stack has a variety of offerings to integrate this securely, following the latest best practices.
+
+#### **Back-End Security**
+- **GraphQL Input Validation**: The backend performs server-side validation on incoming GraphQL requests to prevent injection attacks and ensure data integrity.
+- **GraphQL Complexity Limiting**: Limits the depth and complexity of GraphQL queries, mitigating potential DoS attacks by preventing overly complex requests.
+- **Rate-Limiting**: Implements rate limiting on all API requests to avoid abuse and protect against brute-force or DoS attacks.
+- **Disabling Introspection in Production**: GraphQL introspection is disabled in production to prevent attackers from easily discovering the structure of your API.
+- **Injection Prevention (Mongoose)**: Mongoose schema validation enforces strict validation rules (e.g., data types, string lengths) to prevent NoSQL injection attacks. Parameterized queries ensure data is handled securely before reaching the database.
+
+#### **Front-End Security**
+- **Protection Against DOM-based XSS**: Built using React, the front-end benefits from built-in protections against DOM-based XSS attacks. React escapes dynamic content in JSX, preventing malicious scripts from being injected. The use of `dangerouslySetInnerHTML` is minimized, and raw HTML inputs are manually sanitized, aligning with OWASP Top 10 security practices.
+- **Input Validation**: User inputs on the front-end (controlled radio buttons) are sanitized and validated to prevent injection attacks. Although minimal input is expected, validation ensures that any potential front-end manipulation is caught and sanitized before reaching the back-end.
 
 ---
 
