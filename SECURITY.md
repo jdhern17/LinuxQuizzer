@@ -124,9 +124,32 @@ For the sake of the application, perimeter is defined as the edge protections fo
 
 ## Layer 5: Host Security
 
+
+---
+
+### **Layer 5: Host Security**
+
 - **Use of Docker Containers**: Docker isolates the application and its dependencies, ensuring a clean and controlled environment for both the frontend and backend.
 - **Dummy Container**: All system stats are gathered from a dummy container, isolating sensitive operations from public access.
-- **Package Audits**: Regular use of `npm audit` to monitor for package vulnerabilities, ensuring up-to-date security practices.
+- **Package Audits**: Regular use of `npm audit` will monitor for package vulnerabilities, with prioritization based on severity and traffic levels. The low-traffic nature of this project allows flexibility in addressing non-critical issues.
+    - **Audit Severity Levels**:
+      | Severity  | Attention Level     |
+      |-----------|---------------------|
+      | Critical  | Immediate attention |
+      | High      | Immediate attention |
+      | Moderate  | Address if time allows, but monitor |
+      | Low       | Defer unless usage increases |
+- **Security Groups**: Strict security group rules restrict traffic to only necessary ports, minimizing exposure.
+- **OS Patching**: The EC2 instance will be refreshed monthly by tearing down the existing instance and spinning up a new one using the latest AMI, ensuring the latest security patches are applied.
+- **Platform Tool Version**: Given the low traffic, low visibility, and non-sensitive nature of the data, it is acceptable to remain at most **two major versions behind** for platform tools like Node.js, Docker, Git, and CodeServer, provided any known security vulnerabilities are monitored. Documentation of current versions will be maintained in this **SECURITY.md** file, and migration to newer versions will follow regular testing and validation using updated user data scripts.
+    - **Version Table**:
+      | Tool        | Latest Version    | Dev Server Version | Live Server Version |
+      |-------------|-------------------|--------------------|---------------------|
+      | **Node.js** | Latest stable: 18.x| 18.x (from README)  | (Check Dockerfile)  |
+      | **Docker**  | Latest stable: 24.x| 20.10.x             | Docker at OS level  |
+      | **Git**     | Latest stable: 2.x | Yum-managed version  | N/A                 |
+      | **CodeServer** | Latest stable: 4.x| Installed via official URL | N/A                 |
+- **User Data Scripts**: Automated user data scripts will be utilized to regularly check and apply updates for critical packages and components.
 
 ---
 
