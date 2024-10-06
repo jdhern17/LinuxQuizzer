@@ -124,9 +124,6 @@ For the sake of the application, perimeter is defined as the edge protections fo
 
 ## Layer 5: Host Security
 
-
----
-
 ### **Layer 5: Host Security**
 
 - **Use of Docker Containers**: Docker isolates the application and its dependencies, ensuring a clean and controlled environment for both the frontend and backend.
