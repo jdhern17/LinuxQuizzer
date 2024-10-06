@@ -141,15 +141,15 @@ For the sake of the application, perimeter is defined as the edge protections fo
       | Low       | Defer unless usage increases |
 - **Security Groups**: Strict security group rules restrict traffic to only necessary ports, minimizing exposure.
 - **OS Patching**: The EC2 instance will be refreshed monthly by tearing down the existing instance and spinning up a new one using the latest AMI, ensuring the latest security patches are applied.
-- **Platform Tool Version**: Given the low traffic, low visibility, and non-sensitive nature of the data, it is acceptable to remain at most **two major versions behind** for platform tools like Node.js, Docker, Git, and CodeServer, provided any known security vulnerabilities are monitored. Documentation of current versions will be maintained in this **SECURITY.md** file, and migration to newer versions will follow regular testing and validation using updated user data scripts.
+- **Platform Tool Version**: Given the low traffic, low visibility, and non-sensitive nature of the data, it is acceptable to rely on Yum for platform tools like Node.js, Docker and Git, provided any known security vulnerabilities are monitored. Documentation of current versions will be maintained in this **SECURITY.md** file, and explicit migration to newer versions will follow regular testing and validation using updated user data scripts.
     - **Version Table**:
-      | Tool        | Latest Version    | Dev Server Version | Live Server Version |
+      | Tool        | Latest Stable    | Dev Server | Live Server |
       |-------------|-------------------|--------------------|---------------------|
-      | **Node.js** | Latest stable: 18.x| 18.x (from README)  | (Check Dockerfile)  |
-      | **Docker**  | Latest stable: 24.x| 20.10.x             | Docker at OS level  |
-      | **Git**     | Latest stable: 2.x | Yum-managed version  | N/A                 |
-      | **CodeServer** | Latest stable: 4.x| Installed via official URL | N/A                 |
-- **User Data Scripts**: Automated user data scripts will be utilized to regularly check and apply updates for critical packages and components.
+      | **Node.js** | 18.x| 18.x | Long-Term Support (LTS) Alpine |
+      | **Docker**  | 24.x| Yum-managed | Yum-managed  |
+      | **Git**     | 2.x | Yum-managed  | N/A    |
+      | **CodeServer** | 4.x| Installed via official URL | N/A                 |
+- **Regular Manual Review**: Version checking and OS AMI refreshes will occur manually at a regular monthly cadence to ensure that critical packages and components remain up-to-date.
 
 ---
 
