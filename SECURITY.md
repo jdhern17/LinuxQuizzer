@@ -108,8 +108,17 @@ For the sake of the application, perimeter is defined as the edge protections fo
 
 ## Layer 4: Internal Network Security
 
-- **Intra-Container Communication**: Docker internal networking allows containers to communicate securely within the stack. The backend fetches data from the dummy container over a private network.
-- **Container Network Isolation**: Ensures that containers cannot interact with outside networks except through explicitly allowed rules.
+### AWS Internal Security
+
+- **Virtual Private Cloud (VPC) Isolation**: The application will run inside an isolated VPC. This VPC is logically separated from other AWS customers’ VPCs, ensuring that internal communication and resources remain secure.
+
+- **Private Subnets**: EC2 instances and backend services will use private subnets, meaning they are not directly accessible from the public internet. However, during development, the default VPC allows internet access for external interactions (e.g., accessing the CodeServer). When the application is live, specific services (e.g., frontend and API Gateway) will also have controlled internet exposure, while sensitive internal traffic remains within the VPC. Communication is currently unencrypted using HTTP, but the risk is considered low  due to the non-sensitive nature of the data.
+
+### Container-Level Security
+
+- **Intra-Container Communication**: Docker’s internal networking allows containers to communicate securely within the stack using private internal IPs. The backend fetches data from the dummy container over a private network. Communication between containers is unencrypted using HTTP, but given the internal nature of the network and the lack of sensitive data, the risk is deemed low.
+
+- **Network Isolation and Port Binding**: Containers are isolated from external networks, with explicit port-binding rules controlling which ports (e.g., 80 for HTTP, 443 for HTTPS) are accessible from outside. Only necessary ports are exposed, minimizing the attack surface.
 
 ---
 
