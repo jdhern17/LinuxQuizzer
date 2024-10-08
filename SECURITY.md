@@ -182,12 +182,19 @@ The following commands are considered sufficiently low-risk and have been integr
 - **journalctl**: Reads system logs for insights without making changes.
 - **du**: Analyzes disk usage per directory, which is informational only.
 - **lsof**: Lists open files, revealing active processes and file descriptors.
+- **chown**: Change ownership of files (dummy-safe with isolated files).
+- **chmod**: Change file permissions (safe in an isolated container).
+- **uname**: Display system information.
+- **date**: Show current date/time.
+- **lscpu**: Show CPU architecture details.
+- **hostname**: Display system hostname.
+- **env**: Display environment variables.
 
 These operations have been selected because they involve monitoring and status commands that do not alter the system, pose minimal risk to security, and fit within the scope of professional system analysis.
 
 **Commands Excluded:**
 The following commands have been excluded from the first iteration of the project as they require further vetting due to higher risk, even in a controlled environment:
-- **kill**, **aureport**, **adduser/useradd**, **passwd**, **groupmod**, **groupadd**, **route**, **chage**, **auditctl**, **stress**, **sysctl**, **ifconfig**, **netstat**, **ip**, and others in higher-risk categories.
+- **kill**, **aureport**, **adduser/useradd**, **passwd**, **groupmod**, **groupadd**, **route**, **chage**, **auditctl**, **pgrep**, **pkill**, **stress**, **sysctl**, **ifconfig**, **netstat**, **ip**, and others in higher-risk categories.
 
 ---
 
