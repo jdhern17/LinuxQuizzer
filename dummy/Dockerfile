@@ -1,11 +1,14 @@
-# Use the Node.js official alpine image for a smaller footprint
-FROM node:lts-alpine
+# Use the official Debian image for a more complete set of Unix utilities
+FROM debian:latest
 
 # Set the working directory inside the container
 WORKDIR /app
 
 # Copy the package.json and package-lock.json into the container first
 COPY package.json package-lock.json ./
+
+# Install Node.js and npm
+RUN apt-get update && apt-get install -y nodejs npm procps
 
 # Install dependencies
 RUN npm install

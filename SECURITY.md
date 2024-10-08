@@ -142,7 +142,7 @@ For the sake of the application, perimeter is defined as the edge protections fo
     - **Version Table**:
       | Tool        | Latest Stable    | Dev Server | Live Server |
       |-------------|-------------------|--------------------|---------------------|
-      | **Node.js** | 18.x| 18.x | Long-Term Support (LTS) Alpine |
+      | **Node.js** | 18.x| 18.x | LTS Alpine (front/back) or apt-get via Debian (dummy) |
       | **Docker**  | 24.x| Yum-managed | Yum-managed  |
       | **Git**     | 2.x | Yum-managed  | N/A    |
       | **CodeServer** | 4.x| Installed via official URL | N/A                 |
