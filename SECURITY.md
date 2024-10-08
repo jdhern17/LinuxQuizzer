@@ -152,23 +152,6 @@ For the sake of the application, perimeter is defined as the edge protections fo
 
 ## Layer 6: Application Security
 
-- **GraphQL Input Validation**: The backend performs server-side validation on incoming GraphQL requests to prevent injection attacks.
-- **GraphQL Complexity Limiting**: Restricts the depth and complexity of GraphQL queries, mitigating potential DoS attacks.
-- **Rate-Limiting**: Implements rate limiting on all API requests to prevent abuse.
-- **Disabling Introspection in Production**: Once deployed, GraphQL introspection is disabled to prevent attackers from discovering API structure.
-
-- use OWASP here:
-
-add this:
-
-Protection Against DOM-based XSS
-
-This application is built using React, which provides built-in protections against DOM-based XSS attacks, aligning with the OWASP Top 10 vulnerabilities list. React automatically escapes dynamic content in JSX, preventing malicious scripts from being injected into the DOM. Additionally, the use of dangerouslySetInnerHTML is minimized and, when necessary, any raw HTML input is manually sanitized to mitigate potential security risks. This approach helps protect against client-side XSS vulnerabilities, which are a critical area highlighted by OWASP.
-
----
-
-### **Layer 6: Application Security**
-
 - **MERN Stack Overview**: The MERN (MongoDB, Express.js, React, Node.js) stack is a commonly used technology stack in web development, known for its open-source collaboration and established security practices. This ensures that applications built with MERN benefit from high-quality, community-vetted security measures. The stack’s components are frequently updated to address emerging security concerns.
   
 - **Logging**: Given the low-traffic nature of this project, logging will not be a major integration at this time. However, the MERN stack provides various logging features (e.g., Winston, Morgan) should they be required in future iterations.
