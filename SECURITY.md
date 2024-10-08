@@ -174,26 +174,35 @@ For the sake of the application, perimeter is defined as the edge protections fo
 
 **Commands Integrated into the Application:**
 The following commands are considered sufficiently low-risk and have been integrated into the application for system administration tasks. These commands are primarily focused on operational functionality within a dummy container:
+
+**First Iteration**:
+
 - **top**: Provides safe, real-time monitoring of CPU and memory usage.
 - **ps**: Lists running processes, offering insights without modifying the system.
 - **df**: Checks disk usage, showing filesystem space.
+- **chmod**: Change file permissions (safe in an isolated container).
+
+**Second Iteration**:
+
 - **free**: Displays memory usage statistics, which is read-only.
 - **systemctl status**: Safely checks the status of services without modifications.
 - **journalctl**: Reads system logs for insights without making changes.
 - **du**: Analyzes disk usage per directory, which is informational only.
 - **lsof**: Lists open files, revealing active processes and file descriptors.
+
+**Third Iteration**:
+
 - **chown**: Change ownership of files (dummy-safe with isolated files).
-- **chmod**: Change file permissions (safe in an isolated container).
 - **uname**: Display system information.
 - **date**: Show current date/time.
 - **lscpu**: Show CPU architecture details.
 - **hostname**: Display system hostname.
 - **env**: Display environment variables.
 
-These operations have been selected because they involve monitoring and status commands that do not alter the system, pose minimal risk to security, and fit within the scope of professional system analysis.
+These operations have been selected because they involve monitoring and status commands that do not alter the system and pose minimal risk to security.
 
 **Commands Excluded:**
-The following commands have been excluded from the first iteration of the project as they require further vetting due to higher risk, even in a controlled environment:
+The following commands have been excluded from the current project scope as they require further vetting due to higher risk, even in a controlled environment:
 - **kill**, **aureport**, **adduser/useradd**, **passwd**, **groupmod**, **groupadd**, **route**, **chage**, **auditctl**, **pgrep**, **pkill**, **stress**, **sysctl**, **ifconfig**, **netstat**, **ip**, and others in higher-risk categories.
 
 ---
