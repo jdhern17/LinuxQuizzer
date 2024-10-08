@@ -169,6 +169,26 @@ For the sake of the application, perimeter is defined as the edge protections fo
 - **Protection Against DOM-based XSS**: Built using React, the front-end benefits from built-in protections against DOM-based XSS attacks. React escapes dynamic content in JSX, preventing malicious scripts from being injected. The use of `dangerouslySetInnerHTML` is minimized, and raw HTML inputs are manually sanitized, aligning with OWASP Top 10 security practices.
 - **Input Validation**: User inputs on the front-end (controlled radio buttons) are sanitized and validated to prevent injection attacks. Although minimal input is expected, validation ensures that any potential front-end manipulation is caught and sanitized before reaching the back-end.
 
+
+#### **Application Functionality**
+
+**Commands Integrated into the Application:**
+The following commands are considered sufficiently low-risk and have been integrated into the application for system administration tasks. These commands are primarily focused on operational functionality within a dummy container:
+- **top**: Provides safe, real-time monitoring of CPU and memory usage.
+- **ps**: Lists running processes, offering insights without modifying the system.
+- **df**: Checks disk usage, showing filesystem space.
+- **free**: Displays memory usage statistics, which is read-only.
+- **systemctl status**: Safely checks the status of services without modifications.
+- **journalctl**: Reads system logs for insights without making changes.
+- **du**: Analyzes disk usage per directory, which is informational only.
+- **lsof**: Lists open files, revealing active processes and file descriptors.
+
+These operations have been selected because they involve monitoring and status commands that do not alter the system, pose minimal risk to security, and fit within the scope of professional system analysis.
+
+**Commands Excluded:**
+The following commands have been excluded from the first iteration of the project as they require further vetting due to higher risk, even in a controlled environment:
+- **kill**, **aureport**, **adduser/useradd**, **passwd**, **groupmod**, **groupadd**, **route**, **chage**, **auditctl**, **stress**, **sysctl**, **ifconfig**, **netstat**, **ip**, and others in higher-risk categories.
+
 ---
 
 ## Layer 7: Data Security
@@ -176,7 +196,19 @@ For the sake of the application, perimeter is defined as the edge protections fo
 - **No External User Data**: This application does not handle or store external user data, reducing the attack surface significantly.
 - **Encryption**: Data transfers between the frontend and backend are secured using HTTPS (via Let’s Encrypt SSL certificates).
 - **MongoDB Security**: MongoDB is secured with authentication and SSL, ensuring that even internal application data is protected.
+Here’s the breakdown for **Layer 6 (Application Security)** and **Layer 7 (Data Security)** based on your request to focus on safe operations and exclude moderate or high-risk commands.
 
+**Data-Related Commands Integrated:**
+These commands focus on managing and monitoring data usage within the dummy container and do not pose significant security risks:
+- **du**: Provides information about disk space usage, useful for monitoring available storage.
+- **df**: Monitors file system disk space usage and is non-invasive.
+- **lsof**: Lists open files, offering insight into active data connections without modifying the system.
+
+These commands have been integrated because they read data rather than modify it, making them safe to include within the scope of the application.
+
+**Excluded Commands:**
+The following commands have been excluded from data security considerations due to their potential risks in accessing or modifying sensitive system data:
+- **auditctl**, **logrotate**, **ausearch**, **syslog**, and others related to system logging and audit controls.
 
 ---
 

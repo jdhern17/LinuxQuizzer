@@ -36,30 +36,30 @@ const typeDefs = gql`
 // };
 
 
-// Resolvers updated to pull from dummy container
-const resolvers = {
-  Query: {
-    getSystemStats: async () => {
-      try {
-        // Make a request to the dummy container's /stats endpoint
-        const response = await fetch('http://dummy:3001/stats');
-        const data = await response.json();
+  // Resolvers updated to pull from dummy container
+  const resolvers = {
+    Query: {
+      getSystemStats: async () => {
+        try {
+          // Make a request to the dummy container's /stats endpoint
+          const response = await fetch('http://dummy:3001/stats');
+          const data = await response.json();
 
-        // Destructure the response data to match GraphQL schema
-        const { cpuUsage, memoryUsage, activeProcesses } = data;
-        
-        return {
-          cpuUsage,
-          memoryUsage,
-          activeProcesses,
-        };
-      } catch (error) {
-        console.error('Error fetching system stats:', error);
-        throw new Error('Failed to fetch system stats');
-      }
+          // Destructure the response data to match GraphQL schema
+          const { cpuUsage, memoryUsage, activeProcesses } = data;
+          
+          return {
+            cpuUsage,
+            memoryUsage,
+            activeProcesses,
+          };
+        } catch (error) {
+          console.error('Error fetching system stats:', error);
+          throw new Error('Failed to fetch system stats');
+        }
+      },
     },
-  },
-};
+  };
 
 
 // Initialize Express and ApolloServer
