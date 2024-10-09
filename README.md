@@ -1,5 +1,18 @@
 # Quinux App
 
+## Functionality
+
+This project will initially use javascript package and built-in module tools to deliver Linux commands with the following mappings and rationale:
+
+| **Command**     | **Mapped Method/Module**                                                                                  | **Description**                                                                                       | **Discrepancies**                                                                                                  |
+|-----------------|-----------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| `top`           | `si.currentLoad()`                                                                                        | Provides information about the current CPU load, which can be used to approximate data from `top`.     | `si.currentLoad()` doesn't show individual process information like `top`; it provides overall system load.       |
+| `chmod`         | `fs.chmod()` (Node.js built-in `fs` module)                                                               | The `fs` module in Node.js can be used to change file permissions, directly replacing the `chmod` command.| None. `fs.chmod()` can fully replicate the functionality of `chmod` for file permission changes.                  |
+| `ps`            | `si.processes()`                                                                                          | Returns a list of all processes, similar to `ps aux`, with details like PID, user, CPU, and memory usage.| `si.processes()` may not show as much detailed information, such as process states or TTY columns from `ps aux`.  |
+| `df`            | `si.fsSize()`                                                                                             | Provides information about disk usage, mapping to the output of the `df` command.                     | `si.fsSize()` may not include certain filesystem types or provide as detailed mount information as `df`.          |
+| `free`          | `si.mem()`                                                                                                | Returns memory usage information, including total, used, and free memory, similar to the `free` command.| `si.mem()` provides memory statistics but may lack granularity, such as cache or buffer details from `free`.      |
+
+
 ## Daily Build
 
 This guide outlines how to set up an EC2 instance (currently t3.medium) running `code-server` with **HTTPS**, a **daily rotating password**, and restricted access to your personal IP address. This setup leverages a **self-signed certificate** to secure traffic and ensures only authorized users can access the server.
