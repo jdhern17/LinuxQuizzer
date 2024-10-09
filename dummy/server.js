@@ -1,5 +1,5 @@
 const express = require('express');
-const { exec } = require('child_process'); // Import exec to run shell commands
+const si = require('systeminformation');
 const app = express();
 const port = 3001;
 
@@ -15,15 +15,15 @@ app.get('/stats', (req, res) => {
   });
 });
 
-// New /get-processes endpoint
-app.get('/get-processes', (req, res) => {
-  exec('ps -aux', (err, stdout, stderr) => {
-    if (err) {
-      console.error(`Error: ${stderr}`);
-      return res.status(500).json({ error: 'Failed to retrieve processes' });
-    }
-    return res.json({ processes: stdout }); // Send ps output as a JSON response
-  });
+// Refactored /get-processes endpoint using systeminformation
+app.get('/get-processes', async (req, res) => {
+  try {
+    const processes = await si.processes(); // Get the list of processes
+    res.json({ processes: processes.list }); // Send the process list as a JSON response
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    res.status(500).json({ error: 'Failed to retrieve processes' });
+  }
 });
 
 app.listen(port, () => {
