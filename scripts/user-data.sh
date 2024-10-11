@@ -24,6 +24,16 @@ sudo systemctl enable docker
 # Add ec2-user to the docker group so you can run docker without sudo
 sudo usermod -aG docker ec2-user
 
+# Install Node.js (after Docker setup)
+echo "Installing Node.js..."
+curl -sL https://rpm.nodesource.com/setup_18.x | sudo bash -
+sudo yum install -y nodejs
+
+# Install Docker Compose
+echo "Installing Docker Compose..."
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.3.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
 # Install code-server
 echo "Installing code-server..."
 curl -fsSL https://code-server.dev/install.sh | sh
