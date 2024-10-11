@@ -21,20 +21,6 @@ const typeDefs = gql`
   }
 `;
 
-// Resolvers to return dummy data
-// const resolvers = {
-//   Query: {
-//     getSystemStats: () => ({
-//       cpuUsage: 45,
-//       memoryUsage: 60,
-//       activeProcesses: [
-//         { name: 'Process1', cpu: 20, memory: 30 },
-//         { name: 'Process2', cpu: 25, memory: 15 },
-//       ],
-//     }),
-//   },
-// };
-
 
   // Resolvers updated to pull from dummy container
   const resolvers = {
