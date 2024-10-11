@@ -98,7 +98,7 @@ For the development server, perimeter is being defined as protections to the ser
 
 For the sake of the application, perimeter is defined as the edge protections for AWS cloud services.
 
-- **CloudFront**: AWS CloudFront will serve as a shield for incoming traffic, using HTTPS for secure communication as well as following content delivery policies and geo-restrictions.
+- **CloudFront**: AWS CloudFront will serve as a shield for incoming traffic, using HTTPS for secure communication as well as following content delivery policies and geo-restrictions. CloudFront has protections against cache poisoning such as managing headers and validating responses. Cache control headers can be configured to set short cache expiration times.
 
 - **S3**: S3 bucket policies and access controls will restrict access to specific origins (ex. CloudFront).
 
@@ -159,32 +159,39 @@ For the sake of the application, perimeter is defined as the edge protections fo
 - **Authorization and Authentication**: Given the low sensitivity of the data (container statistics, at times dummy statistics), the current iteration of the project will not include authentication or authorization mechanisms. If deemed necessary, the MERN stack has a variety of offerings to integrate this securely, following the latest best practices.
 
 #### **Back-End Security**
-- **GraphQL Input Validation**: The backend performs server-side validation on incoming GraphQL requests to prevent injection attacks and ensure data integrity.
-- **GraphQL Complexity Limiting**: Limits the depth and complexity of GraphQL queries, mitigating potential DoS attacks by preventing overly complex requests.
 - **Rate-Limiting**: Implements rate limiting on all API requests to avoid abuse and protect against brute-force or DoS attacks.
 - **Disabling Introspection in Production**: GraphQL introspection is disabled in production to prevent attackers from easily discovering the structure of your API.
 - **Injection Prevention (Mongoose)**: Mongoose schema validation enforces strict validation rules (e.g., data types, string lengths) to prevent NoSQL injection attacks. Parameterized queries ensure data is handled securely before reaching the database.
+- **Error Information Leakage via FormatError**: The GraphQL middleware formatError is being leveraged to standardize the GraphQL error messages and ensure that a controlled response is sent to the front-end.
+
+##### **Currently Below Risk Threshold**:
+- **GraphQL Input Validation & Complexity Limiting**: The current iteration will focus primarily on GET requests that will not handle user input. If the backend begins handling POST requests or user input, then it will need to perform server-side validation on incoming GraphQL requests to prevent injection attacks and ensure data integrity. GraphQL Complexity Limiting limits the depth and complexity of GraphQL queries, mitigating potential DoS attacks by preventing overly complex requests. For the current iteration this is not above the threshold of an addressable risk.
+
+- **Parameter Injection**: Until query parameters are being handled, this risk is minimal.
+
+- **Excessive Data Retrieval**: Data is currently limited to a dummy container, in future considerations with databases, this will be addressed via pagination or data limits.
 
 #### **Front-End Security**
 - **Protection Against DOM-based XSS**: Built using React, the front-end benefits from built-in protections against DOM-based XSS attacks. React escapes dynamic content in JSX, preventing malicious scripts from being injected. The use of `dangerouslySetInnerHTML` is minimized, and raw HTML inputs are manually sanitized, aligning with OWASP Top 10 security practices.
 - **Input Validation**: User inputs on the front-end (controlled radio buttons) are sanitized and validated to prevent injection attacks. Although minimal input is expected, validation ensures that any potential front-end manipulation is caught and sanitized before reaching the back-end.
+- **XSS via Reflected Data**: Front-end data rendered will need to be escaped or sanitized. Packages such as DOMPurify or sanitize-html can researched further to prevent this.
 
 
 #### **Application Functionality**
 
-**Commands Integrated into the Application:**
-The following commands are considered sufficiently low-risk and have been integrated into the application for system administration tasks. These commands are primarily focused on operational functionality within a dummy container:
+**Features Integrated into the Application:**
+The following methods and commands are considered sufficiently low-risk and have been integrated into the application for system administration tasks. These commands are primarily focused on operational functionality within a dummy container and will be further secured with the usage of the npm package systeminformation and fs methods:
 
 **First Iteration**:
 
-- **top**: Provides safe, real-time monitoring of CPU and memory usage.
-- **ps**: Lists running processes, offering insights without modifying the system.
-- **df**: Checks disk usage, showing filesystem space.
-- **chmod**: Change file permissions (safe in an isolated container).
+- **top/si.currentLoad**: System load information.
+- **ps/si.processes**: Lists running processes, offering insights without modifying the system.
+- **df/si.fsSize**: Checks disk usage, showing filesystem space.
+- **chmod/fs.chmod**: Change file permissions (safe in an isolated container).
+- **free/si.mem**: Displays memory usage statistics, which is read-only.
 
 **Second Iteration**:
 
-- **free**: Displays memory usage statistics, which is read-only.
 - **systemctl status**: Safely checks the status of services without modifications.
 - **journalctl**: Reads system logs for insights without making changes.
 - **du**: Analyzes disk usage per directory, which is informational only.

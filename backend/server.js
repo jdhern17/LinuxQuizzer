@@ -6,6 +6,7 @@ const fetch = require('node-fetch');
 const typeDefs = gql`
   type Query {
     getSystemStats: SystemStats
+    getProcesses: [Process]
   }
 
   type SystemStats {
@@ -14,11 +15,24 @@ const typeDefs = gql`
     activeProcesses: [Process]
   }
 
-  type Process {
-    name: String
-    cpu: Int
-    memory: Int
-  }
+type Process {
+  pid: Int
+  parentPid: Int
+  name: String
+  cpu: Float
+  cpuu: Float
+  cpus: Float
+  memVsz: Int
+  memRss: Int
+  nice: Int
+  started: String
+  state: String
+  tty: String
+  user: String
+  command: String
+  params: String
+  path: String
+}
 `;
 
 
@@ -50,7 +64,18 @@ const typeDefs = gql`
 
 // Initialize Express and ApolloServer
 const app = express();
-const server = new ApolloServer({ typeDefs, resolvers });
+// const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  formatError: (err) => {
+    // Log the full error details for debugging
+    console.error('GraphQL Error:', err);
+
+    // Return a generic error message to the client
+    return new Error('An internal server error occurred');
+  },
+});
 
 server.start().then(() => {
   server.applyMiddleware({ app });
