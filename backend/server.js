@@ -2,11 +2,9 @@ const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
 const fetch = require('node-fetch');
 
-// Type definitions (schema)
 const typeDefs = gql`
   type Query {
     getSystemStats: SystemStats
-    getProcesses: [Process]
   }
 
   type SystemStats {
@@ -15,24 +13,11 @@ const typeDefs = gql`
     activeProcesses: [Process]
   }
 
-type Process {
-  pid: Int
-  parentPid: Int
-  name: String
-  cpu: Float
-  cpuu: Float
-  cpus: Float
-  memVsz: Int
-  memRss: Int
-  nice: Int
-  started: String
-  state: String
-  tty: String
-  user: String
-  command: String
-  params: String
-  path: String
-}
+  type Process {
+    name: String
+    cpu: Int
+    memory: Int
+  }
 `;
 
 
