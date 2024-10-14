@@ -1,16 +1,37 @@
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
+const si = require('systeminformation');
 const fetch = require('node-fetch');
 
 const typeDefs = gql`
   type Query {
     getDummyData: DummyData
+    getProcesses: [Process]
   }
 
   type DummyData {
     message: String
     simpleValue: Int
   }
+
+  type Process {
+    pid: Int
+    parentPid: Int
+    name: String
+    cpu: Float
+    cpuu: Float
+    cpus: Float
+    memVsz: Int
+    memRss: Int
+    nice: Int
+    started: String
+    state: String
+    tty: String
+    user: String
+    command: String
+    params: String
+    path: String
+}
 `;
 
 
@@ -35,8 +56,52 @@ const typeDefs = gql`
           throw new Error('Failed to fetch system stats');
         }
       },
+      getProcesses: async () => {
+        try {
+          const processes = await si.processes();
+          return processes.list.map(({ 
+            pid, 
+            parentPid, 
+            name, 
+            cpu, 
+            cpuu, 
+            cpus, 
+            memVsz, 
+            memRss, 
+            nice, 
+            started, 
+            state, 
+            tty, 
+            user, 
+            command, 
+            params, 
+            path 
+          }) => ({
+            pid,
+            parentPid,
+            name,
+            cpu,
+            cpuu,
+            cpus,
+            memVsz,
+            memRss,
+            nice,
+            started,
+            state,
+            tty,
+            user,
+            command,
+            params,
+            path
+          }));
+        } catch (error) {
+          console.error('Error fetching processes:', error);
+          throw new Error('Failed to retrieve processes');
+        }
+      },
     },
   };
+
 
 
 // Initialize Express and ApolloServer
