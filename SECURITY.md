@@ -158,26 +158,39 @@ For the sake of the application, perimeter is defined as the edge protections fo
 
 - **Authorization and Authentication**: Given the low sensitivity of the data (container statistics, at times dummy statistics), the current iteration of the project will not include authentication or authorization mechanisms. If deemed necessary, the MERN stack has a variety of offerings to integrate this securely, following the latest best practices.
 
-#### **Back-End Security**
+### **Back-End Security**
+
 - **Rate-Limiting**: Implements rate limiting on all API requests to avoid abuse and protect against brute-force or DoS attacks.
+
 - **Disabling Introspection in Production**: GraphQL introspection is disabled in production to prevent attackers from easily discovering the structure of your API.
+
 - **Injection Prevention (Mongoose)**: Mongoose schema validation enforces strict validation rules (e.g., data types, string lengths) to prevent NoSQL injection attacks. Parameterized queries ensure data is handled securely before reaching the database.
+
 - **Error Information Leakage via FormatError**: The GraphQL middleware formatError is being leveraged to standardize the GraphQL error messages and ensure that a controlled response is sent to the front-end.
 
-##### **Currently Below Risk Threshold**:
-- **GraphQL Input Validation & Complexity Limiting**: The current iteration will focus primarily on GET requests that will not handle user input. If the backend begins handling POST requests or user input, then it will need to perform server-side validation on incoming GraphQL requests to prevent injection attacks and ensure data integrity. GraphQL Complexity Limiting limits the depth and complexity of GraphQL queries, mitigating potential DoS attacks by preventing overly complex requests. For the current iteration this is not above the threshold of an addressable risk.
+##### **Input Validation**
 
-- **Parameter Injection**: Until query parameters are being handled, this risk is minimal.
+- **Built-In GraphQL Input Validation**: Given that GraphQL queries are executed using POST requests and can carry complex payloads, input validation is essential to ensure that only safe and expected data is processes by the server. The Apollo Server will perform an initial layer of input validation by comparing the incoming request against the schema in the TypeDefs before being sent to the resolver functions. If the query structure does not match the schema (such as asking for a non-existing field), the request will be rejected. 
+
+- **GraphQL Shield**: While using GraphQL Shield's for authentication and authorization mechanisms will not be leveraged at this time, there are additional steps that can be taken such as ensuring all required fields are included.
+
+- **Custom Input Validation**: Within the resolver, we will be performing conditional input data validation.
+
+- **GraphQL Complexity Limiting**: GraphQL Complexity Limiting limits the depth and complexity of GraphQL queries, mitigating potential DoS attacks by preventing overly complex requests. The package graphql-query-complexity provides a structured way to perform complexity analysis and throw an error if a threshold is reached.
+
+##### **Currently Below Risk Threshold**:
+- **Parameter Injection**: While arbitrary query parameters are not allowed by GraphQL, variables passed into queries could be a potential attack vector. Since query variables are not currently being used, the risk is on the minimal side.
 
 - **Excessive Data Retrieval**: Data is currently limited to a dummy container, in future considerations with databases, this will be addressed via pagination or data limits.
 
-#### **Front-End Security**
+- **User Input**: For the first iterations of this project, no user input will be received directly by the user, which will help mitigate a significant portion of injection attacks. If user input is going to be handled at any point, then this will need to be addressed.
+
+### **Front-End Security**
 - **Protection Against DOM-based XSS**: Built using React, the front-end benefits from built-in protections against DOM-based XSS attacks. React escapes dynamic content in JSX, preventing malicious scripts from being injected. The use of `dangerouslySetInnerHTML` is minimized, and raw HTML inputs are manually sanitized, aligning with OWASP Top 10 security practices.
 - **Input Validation**: User inputs on the front-end (controlled radio buttons) are sanitized and validated to prevent injection attacks. Although minimal input is expected, validation ensures that any potential front-end manipulation is caught and sanitized before reaching the back-end.
 - **XSS via Reflected Data**: Front-end data rendered will need to be escaped or sanitized. Packages such as DOMPurify or sanitize-html can researched further to prevent this.
 
-
-#### **Application Functionality**
+### **Application Functionality**
 
 **Features Integrated into the Application:**
 The following methods and commands are considered sufficiently low-risk and have been integrated into the application for system administration tasks. These commands are primarily focused on operational functionality within a dummy container and will be further secured with the usage of the npm package systeminformation and fs methods:
