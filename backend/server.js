@@ -11,6 +11,25 @@ const typeDefs = gql`
     message: String
     simpleValue: Int
   }
+
+  type Process {
+    pid: Int
+    parentPid: Int
+    name: String
+    cpu: Float
+    cpuu: Float
+    cpus: Float
+    memVsz: Int
+    memRss: Int
+    nice: Int
+    started: String
+    state: String
+    tty: String
+    user: String
+    command: String
+    params: String
+    path: String
+}
 `;
 
 
