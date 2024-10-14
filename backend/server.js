@@ -1,10 +1,12 @@
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
+const si = require('systeminformation');
 const fetch = require('node-fetch');
 
 const typeDefs = gql`
   type Query {
     getDummyData: DummyData
+    getProcesses: [Process]
   }
 
   type DummyData {
