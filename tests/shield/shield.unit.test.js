@@ -19,7 +19,6 @@ describe('GraphQL Shield: Allow getProcesses Query', () => {
             .post('/')
             .send({ query });
 
-        console.log(response.body); // Optional: For debugging purposes
         expect(response.status).toBe(200); // Assuming a successful request
         expect(response.body.data).toHaveProperty('getProcesses'); // Ensure the response has 'getProcesses'
         expect(Array.isArray(response.body.data.getProcesses)).toBe(true); // Ensure it's an array
