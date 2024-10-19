@@ -174,7 +174,7 @@ Given that GraphQL queries are executed using POST requests and can carry comple
 
 - **Built-In GraphQL Schema Validation**: The Apollo Server will perform an initial layer of input validation by comparing the incoming request against the schema in the TypeDefs before being sent to the resolver functions. If the query structure does not match the schema (such as asking for a non-existing field), the request will be rejected. 
 
-- **GraphQL Shield**: While authentication and authorization mechanisms from GraphQL Shield will not be leveraged at this time, there are additional steps that can be taken such as ensuring all required fields are included and denying any mutation processing.
+- **GraphQL Shield**: While authentication and authorization mechanisms from GraphQL Shield will not be leveraged at this time, there are additional steps that can be taken such as blocking all other queries besides those explicitly allowed.
 
 - **GraphQL Complexity Limiting**: GraphQL Complexity Limiting limits the complexity of GraphQL queries, mitigating potential DoS attacks by preventing overly complex requests. The package graphql-query-complexity provides a structured way to perform complexity analysis and throw an error if a threshold is reached.
 
