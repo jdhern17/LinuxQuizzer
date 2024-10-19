@@ -10,7 +10,6 @@ const permissions = shield({
   Query: {
     "*": deny,        // Deny all queries by default
     getProcesses: allow,  // Allow the getProcesses query
-    getDummyData: deny,
   },
   // Mutation: {
   //   "*": deny,        // Deny all mutations
