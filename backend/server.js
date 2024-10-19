@@ -19,14 +19,6 @@ const permissions = shield({
   fallbackRule: deny  // Fallback rule: deny all queries not specified above
 });
 
-// const permissions = shield({
-//   Query: {
-//     getProcesses: allow,
-//     getDummyData: deny,
-//   },
-//   Mutation: deny, // Block all mutations
-// });
-
 const typeDefs = gql`
   type Query {
     getDummyData: DummyData
