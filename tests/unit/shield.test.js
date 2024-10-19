@@ -39,7 +39,7 @@ describe('GraphQL Shield: Deny Mutations', () => {
       const response = await request(graphQLBaseUrl)
         .post('/')
         .send({ query });
-  
+      console.log(response.body);
       expect(response.status).toBe(200);  // Assuming 200 for failed auth, adjust as needed
       expect(response.body.errors).toBeDefined();
       expect(response.body.errors[0].message).toContain('Not Authorized');  // Or your specific error message

@@ -2,6 +2,30 @@ const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
 const si = require('systeminformation');
 const fetch = require('node-fetch');
+const { shield, allow, deny } = require('graphql-shield');
+const { applyMiddleware } = require('graphql-middleware');
+const { makeExecutableSchema } = require('@graphql-tools/schema');
+
+const permissions = shield({
+  Query: {
+    "*": deny,        // Deny all queries by default
+    getProcesses: allow,  // Allow the getProcesses query
+    getDummyData: deny,
+  },
+  // Mutation: {
+  //   "*": deny,        // Deny all mutations
+  // },
+}, {
+  fallbackRule: deny  // Fallback rule: deny all queries not specified above
+});
+
+// const permissions = shield({
+//   Query: {
+//     getProcesses: allow,
+//     getDummyData: deny,
+//   },
+//   Mutation: deny, // Block all mutations
+// });
 
 const typeDefs = gql`
   type Query {
@@ -107,9 +131,14 @@ const typeDefs = gql`
 // Initialize Express and ApolloServer
 const app = express();
 // const server = new ApolloServer({ typeDefs, resolvers });
-const server = new ApolloServer({
+
+const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
+});
+
+const server = new ApolloServer({
+  schema: applyMiddleware(schema, permissions),
   formatError: (err) => {
     // Log the full error details for debugging
     console.error('GraphQL Error:', err);
@@ -119,10 +148,22 @@ const server = new ApolloServer({
   },
 });
 
+// const server = new ApolloServer({
+//   typeDefs,
+//   resolvers,
+//   formatError: (err) => {
+//     // Log the full error details for debugging
+//     console.error('GraphQL Error:', err);
+
+//     // Return a generic error message to the client
+//     return new Error('An internal server error occurred');
+//   },
+// });
+
 server.start().then(() => {
   server.applyMiddleware({ app });
 
   app.listen(4000, () => {
     console.log('Server is running at http://localhost:4000' + server.graphqlPath);
   });
-});
+}); 
