@@ -11,11 +11,11 @@ const { makeExecutableSchema } = require('@graphql-tools/schema');
 // },
 const permissions = shield({
   Query: {
-    "*": allow,        // Deny all queries by default
-    // getProcesses: allow,  // Allow the getProcesses query
+    "*": deny,        // Deny all queries by default
+    getProcesses: allow,  // Allow the getProcesses query
   },
 }, {
-  fallbackRule: allow  // Fallback rule: deny all queries not specified above
+  fallbackRule: deny  // Fallback rule: deny all queries not specified above
 });
 
 const typeDefs = gql`
