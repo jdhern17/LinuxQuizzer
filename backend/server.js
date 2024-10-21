@@ -1,6 +1,5 @@
 const express = require('express');
 const { ApolloServer, gql } = require('apollo-server-express');
-const si = require('systeminformation');
 const fetch = require('node-fetch');
 const { shield, allow, deny } = require('graphql-shield');
 const { applyMiddleware } = require('graphql-middleware');
@@ -12,11 +11,11 @@ const { makeExecutableSchema } = require('@graphql-tools/schema');
 // },
 const permissions = shield({
   Query: {
-    "*": deny,        // Deny all queries by default
-    getProcesses: allow,  // Allow the getProcesses query
+    "*": allow,        // Deny all queries by default
+    // getProcesses: allow,  // Allow the getProcesses query
   },
 }, {
-  fallbackRule: deny  // Fallback rule: deny all queries not specified above
+  fallbackRule: allow  // Fallback rule: deny all queries not specified above
 });
 
 const typeDefs = gql`
@@ -74,8 +73,9 @@ const typeDefs = gql`
       },
       getProcesses: async () => {
         try {
-          const processes = await si.processes();
-          return processes.list.map(({ 
+          const response = await fetch('http://dummy:3001/get-processes');
+          const data = await response.json();
+          return data.processes.map(({ 
             pid, 
             parentPid, 
             name, 
