@@ -15,7 +15,6 @@ describe('GraphQL Shield: Deny getDummyData Query', () => {
       const response = await request(graphQLBaseUrl)
         .post('/')
         .send({ query });
-      console.log(response.body);
       expect(response.status).toBe(200);  // Assuming 200 for failed auth, adjust as needed
       expect(response.body).toHaveProperty('errors');
       expect(response.body.errors).toBeDefined();
