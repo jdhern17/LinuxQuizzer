@@ -53,5 +53,9 @@ describe('Backend container - GraphQL getProcesses query', () => {
       expect(response.body.data.getProcesses[0].memVsz).not.toBeNull(); // Ensure memory info is present
       expect(response.body.data.getProcesses[0].user).not.toBeNull();  // Ensure user info is present
       expect(response.body.data.getProcesses[0].command).not.toBeNull();  // Ensure command info is present
+      expect(typeof response.body.data.getProcesses[0].name).toBe('string');  // Name should be a string
+      expect(response.body.data.getProcesses[0].memVsz).toBeGreaterThan(0);  // Ensure valid memory size
+      expect(response.body.data.getProcesses[0].user).toMatch(/[a-z]+/);  // User should be a valid string
     });
   });
+
