@@ -25,3 +25,23 @@ describe('GraphQL Shield: Allow getProcesses Query', () => {
         expect(response.body.data.getProcesses.length).toBeGreaterThan(0); // Ensure it's not empty
     });
 });
+
+describe('GraphQL Shield: Deny getDummyData Query', () => {
+  
+    it('should deny getDummyData query', async () => {
+      const query = `
+        query {
+          getDummyData {
+            message
+            simpleValue
+          }
+        }
+      `;
+      const response = await request(graphqlBaseUrl)
+        .post('/')
+        .send({ query });
+      expect(response.status).toBe(200);  // Assuming 200 for failed auth, adjust as needed
+      expect(response.body).toHaveProperty('errors');
+      expect(response.body.errors).toBeDefined();
+    });
+  });
