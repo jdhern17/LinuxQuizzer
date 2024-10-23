@@ -1,5 +1,5 @@
 const request = require('supertest');
-const graphQLBaseUrl = `http://localhost:4000/graphql`;
+const graphqlBaseUrl = 'http://localhost:4000/graphql';
 
 describe('GraphQL Shield: Deny getDummyData Query', () => {
   
@@ -12,10 +12,10 @@ describe('GraphQL Shield: Deny getDummyData Query', () => {
           }
         }
       `;
-      const response = await request(graphQLBaseUrl)
+      const response = await request(graphqlBaseUrl)
         .post('/')
         .send({ query });
-      console.log(response.body);
+    // temporary proxy for shield validation, needs more granular assessment
       expect(response.status).toBe(200);  // Assuming 200 for failed auth, adjust as needed
       expect(response.body).toHaveProperty('errors');
       expect(response.body.errors).toBeDefined();

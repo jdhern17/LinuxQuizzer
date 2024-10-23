@@ -15,7 +15,7 @@ const permissions = shield({
     getProcesses: allow,  // Allow the getProcesses query
   },
 }, {
-  fallbackRule: deny  // Fallback rule: deny all queries not specified above
+  // fallbackRule: deny  // Fallback rule: deny all queries not specified above
 });
 
 const typeDefs = gql`
