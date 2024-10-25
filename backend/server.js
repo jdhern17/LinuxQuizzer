@@ -5,17 +5,11 @@ const { shield, allow, deny } = require('graphql-shield');
 const { applyMiddleware } = require('graphql-middleware');
 const { makeExecutableSchema } = require('@graphql-tools/schema');
 
-// If mutations will be included:
-// Mutation: {
-//   "*": deny,        // Deny all mutations
-// },
 const permissions = shield({
   Query: {
     "*": deny,        // Deny all queries by default
     getProcesses: allow,  // Allow the getProcesses query
   },
-}, {
-  // fallbackRule: deny  // Fallback rule: deny all queries not specified above
 });
 
 const typeDefs = gql`
