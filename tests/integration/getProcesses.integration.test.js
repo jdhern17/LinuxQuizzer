@@ -22,7 +22,7 @@ describe('Backend container - GraphQL getProcesses query', () => {
         .send({ query });
   
       expect(response.status).toBe(200);
-      // expect(response.body.errors).toBeFalsy(); // Could be undefined, null, or an empty array
+      expect(response.body.errors).toBeFalsy(); // Could be undefined, null, or an empty array
       expect(response.body.errors).toBeUndefined(); // Ensure no error field exists
       expect(response.body.data).toHaveProperty('getProcesses');
       expect(Array.isArray(response.body.data.getProcesses)).toBe(true);
