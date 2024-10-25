@@ -110,18 +110,6 @@ const server = new ApolloServer({
   },
 });
 
-// const server = new ApolloServer({
-//   typeDefs,
-//   resolvers,
-//   formatError: (err) => {
-//     // Log the full error details for debugging
-//     console.error('GraphQL Error:', err);
-
-//     // Return a generic error message to the client
-//     return new Error('An internal server error occurred');
-//   },
-// });
-
 server.start().then(() => {
   server.applyMiddleware({ app });
 
