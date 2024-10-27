@@ -37,8 +37,10 @@ describe('GraphQL Depth Limiting', () => {
       .post('/')
       .send({ query });
 
-    expect(response.status).toBe(400); // Expect a 400 error for a failed depth validation
-    console.log(response.body);
+      console.log(response.body);
+      console.log(response.body.data);
+      console.log(response.body.data.getDepthDummyTest);
+      expect(response.status).toBe(400); // Expect a 400 error for a failed depth validation
     expect(response.body.errors[0].message).toMatch(/depth limit exceeded/); // Adjust error message to match the actual error
   });
 });
