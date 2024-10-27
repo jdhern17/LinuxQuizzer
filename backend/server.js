@@ -13,6 +13,7 @@ const permissions = shield({
   Query: {
     "*": deny,        // Deny all queries by default
     getProcesses: allow,  // Allow the getProcesses query
+    getDepthDummyTest: allow,
   },
 }, {
   // fallbackRule: deny  // Fallback rule: deny all queries not specified above
