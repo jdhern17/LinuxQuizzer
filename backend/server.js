@@ -4,6 +4,7 @@ const fetch = require('node-fetch');
 const { shield, allow, deny } = require('graphql-shield');
 const { applyMiddleware } = require('graphql-middleware');
 const { makeExecutableSchema } = require('@graphql-tools/schema');
+const {ApolloArmor} = require('@escape.tech/graphql-armor');
 
 const permissions = shield({
   Query: {
@@ -99,12 +100,19 @@ const schema = makeExecutableSchema({
   resolvers,
 });
 
+const armor = new ApolloArmor({
+  maxDepth: 3 // Set the depth limit to 3
+});
+
+const protection = armor.protect();
+
 const server = new ApolloServer({
   schema: applyMiddleware(schema, permissions),
+  plugins: [...protection.plugins, depthLimitPlugin()],
+  validationRules: [...protection.validationRules],
   formatError: (err) => {
     // Log the full error details for debugging
     console.error('GraphQL Error:', err);
-
     // Return a generic error message to the client
     return new Error('An internal server error occurred');
   },
