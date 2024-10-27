@@ -22,8 +22,17 @@ const typeDefs = gql`
   type Query {
     getDummyData: DummyData
     getProcesses: [Process]
+    getDepthDummyTest: Depth1Test
   }
 
+  type Depth1Test {
+    depth2Test: Depth2Test
+  }
+  
+  type Depth2Test {
+    depth3Test: String
+  }
+  
   type DummyData {
     message: String
     simpleValue: Int
@@ -53,6 +62,13 @@ const typeDefs = gql`
   // Resolvers updated to pull from dummy container
   const resolvers = {
     Query: {
+      getDepthDummyTest: () => {
+        return {
+          depth2Test: {
+            depth3Test: "This is the depth 3 string"
+          }
+        }
+      },
       getDummyData: async () => {
         try {
           // Make a request to the dummy container's /dummy endpoint
