@@ -176,12 +176,12 @@ Given that GraphQL queries are executed using POST requests and can carry comple
 
 - **GraphQL Shield**: While authentication and authorization mechanisms from GraphQL Shield will not be leveraged at this time, there are additional steps that can be taken such as blocking all other queries besides those explicitly allowed.
 
-- **GraphQL Complexity Limiting**: GraphQL Complexity Limiting limits the complexity of GraphQL queries, mitigating potential DoS attacks by preventing overly complex requests. The package graphql-query-complexity provides a structured way to perform complexity analysis and throw an error if a threshold is reached.
+- **GraphQL Depth Limiting**: GraphQL Depth Limiting, like complexity limiting, is set at the Apollo Server level to prevent excessive nesting that could degrade server performance. This helps ensure that limits to the level of nested objects are set and queries exceeding a set threshold are rejected prior to further processing. The graphql-depth-limit package will be used for this.
 
--- **GraphQL Depth Limiting**: GraphQL Depth Limiting, like complexity limiting, is set at the Apollo Server level to prevent excessive nesting that could degrade server performance. This helps ensure that limits to the level of nested objects are set and queries exceeding a set threshold are rejected prior to further processing. The graphql-depth-limit package will be used for this.
-
-##### **Limited Risk**:
+##### **Deferred or Limited Risk**:
 - **Custom Input Validation**: While custom input validation is critical, the first iteration of the application will not be receiving or processing any arguments from the query. While this reduces the attack surface, given input validation's integral role in request processing, any usage of the args parameter or functionality beyond predefined data retrieval will require co-occurring built-in mitigation such as validating input types and expected values.
+
+- **GraphQL Complexity/Cost Limiting**: GraphQL Complexity Limiting limits the complexity of GraphQL queries, mitigating potential DoS attacks by preventing overly complex requests. The tool GraphQL Armor provides a structured way to perform complexity analysis and throw an error if a threshold is reached. As the project grows, this may be reconsidered for integration.
 
 ##### **Currently Below Risk Threshold**:
 - **Parameter Injection**: While arbitrary query parameters are not allowed by GraphQL, variables passed into queries could be a potential attack vector. Since query variables are not currently being used, the risk is on the minimal side.
