@@ -149,7 +149,7 @@ const schema = makeExecutableSchema({
 
 const armor = new ApolloArmor({
   maxDepth: {
-    n: 4, // Adjust depth limit here
+    n: 2, // Adjust depth limit here
   },
   // Other armor settings like costLimit, maxTokens, etc.
 });
