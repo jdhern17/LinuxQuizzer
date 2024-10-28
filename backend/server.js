@@ -101,14 +101,18 @@ const schema = makeExecutableSchema({
 });
 
 const armor = new ApolloArmor({
-  maxDepth: 3 // Set the depth limit to 3
+  maxDepth: {
+    n: 4, // Adjust depth limit here
+  },
+  // Other armor settings like costLimit, maxTokens, etc.
 });
 
 const protection = armor.protect();
 
 const server = new ApolloServer({
   schema: applyMiddleware(schema, permissions),
-  plugins: [...protection.plugins, depthLimitPlugin()],
+  ...protection,
+  plugins: [...protection.plugins],
   validationRules: [...protection.validationRules],
   formatError: (err) => {
     // Log the full error details for debugging
