@@ -4,6 +4,7 @@ const fetch = require('node-fetch');
 const { shield, allow, deny } = require('graphql-shield');
 const { applyMiddleware } = require('graphql-middleware');
 const { makeExecutableSchema } = require('@graphql-tools/schema');
+const {ApolloArmor} = require('@escape.tech/graphql-armor');
 
 // If mutations will be included:
 // Mutation: {
@@ -13,6 +14,7 @@ const permissions = shield({
   Query: {
     "*": deny,        // Deny all queries by default
     getProcesses: allow,  // Allow the getProcesses query
+    getDepthDummyTest: allow,
   },
 }, {
   // fallbackRule: deny  // Fallback rule: deny all queries not specified above
@@ -22,8 +24,17 @@ const typeDefs = gql`
   type Query {
     getDummyData: DummyData
     getProcesses: [Process]
+    getDepthDummyTest: Depth1Test
   }
 
+  type Depth1Test {
+    depth2Test: Depth2Test
+  }
+  
+  type Depth2Test {
+    depth3Test: String
+  }
+  
   type DummyData {
     message: String
     simpleValue: Int
@@ -53,6 +64,13 @@ const typeDefs = gql`
   // Resolvers updated to pull from dummy container
   const resolvers = {
     Query: {
+      getDepthDummyTest: () => {
+        return {
+          depth2Test: {
+            depth3Test: "This is the depth 3 string"
+          }
+        }
+      },
       getDummyData: async () => {
         try {
           // Make a request to the dummy container's /dummy endpoint
@@ -129,12 +147,23 @@ const schema = makeExecutableSchema({
   resolvers,
 });
 
+const armor = new ApolloArmor({
+  maxDepth: {
+    n: 2, // Adjust depth limit here
+  },
+  // Other armor settings like costLimit, maxTokens, etc.
+});
+
+const protection = armor.protect();
+
 const server = new ApolloServer({
   schema: applyMiddleware(schema, permissions),
+  ...protection,
+  plugins: [...protection.plugins],
+  validationRules: [...protection.validationRules],
   formatError: (err) => {
     // Log the full error details for debugging
     console.error('GraphQL Error:', err);
-
     // Return a generic error message to the client
     return new Error('An internal server error occurred');
   },
