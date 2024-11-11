@@ -25,11 +25,11 @@ function App() {
 
   // Prepare data for the chart
   const chartData = {
-    labels: data.getSystemStats.activeProcesses.map((proc) => proc.name),
+    labels: data.getProcesses.map((proc) => proc.name),
     datasets: [
       {
         label: 'CPU Usage (%)',
-        data: data.getSystemStats.activeProcesses.map((proc) => proc.cpu),
+        data: data.getProcesses.map((proc) => proc.cpu),
         backgroundColor: [
           'rgba(255, 99, 132, 0.6)',
           'rgba(54, 162, 235, 0.6)',
