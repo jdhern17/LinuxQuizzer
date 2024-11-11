@@ -12,7 +12,7 @@ const GET_SYSTEM_STATS = gql`
       parentPid
       name
       cpu
-      memory
+      memVsz
     }
   }
 `;
@@ -53,7 +53,7 @@ function App() {
       <ul>
         {data.getProcesses.map((process, index) => (
           <li key={index}>
-            {process.name}: CPU {process.cpu}% - Memory {process.memory}%
+            {process.name}: CPU {process.cpu}% - Memory {process.memVsz}%
           </li>
         ))}
       </ul>
