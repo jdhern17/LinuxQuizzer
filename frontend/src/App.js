@@ -6,15 +6,13 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const GET_SYSTEM_STATS = gql`
-  query GetSystemStats {
-    getSystemStats {
-      cpuUsage
-      memoryUsage
-      activeProcesses {
-        name
-        cpu
-        memory
-      }
+  query GetProcesses {
+    getProcesses {
+      pid
+      parentPid
+      name
+      cpu
+      memory
     }
   }
 `;
