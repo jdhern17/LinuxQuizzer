@@ -48,11 +48,10 @@ function App() {
   return (
     <div className="App">
       <h1>System Check Dashboard</h1>
-      <p>CPU Usage: {data.getSystemStats.cpuUsage}%</p>
-      <p>Memory Usage: {data.getSystemStats.memoryUsage}%</p>
+      <p>CPU Usage: {data.getProcesses[0].cpu}%</p>
       <h2>Active Processes:</h2>
       <ul>
-        {data.getSystemStats.activeProcesses.map((process, index) => (
+        {data.getProcesses.map((process, index) => (
           <li key={index}>
             {process.name}: CPU {process.cpu}% - Memory {process.memory}%
           </li>
