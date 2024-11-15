@@ -6,15 +6,13 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const GET_SYSTEM_STATS = gql`
-  query GetSystemStats {
-    getSystemStats {
-      cpuUsage
-      memoryUsage
-      activeProcesses {
-        name
-        cpu
-        memory
-      }
+  query GetProcesses {
+    getProcesses {
+      pid
+      parentPid
+      name
+      cpu
+      memVsz
     }
   }
 `;
@@ -27,11 +25,11 @@ function App() {
 
   // Prepare data for the chart
   const chartData = {
-    labels: data.getSystemStats.activeProcesses.map((proc) => proc.name),
+    labels: data.getProcesses.map((proc) => proc.name),
     datasets: [
       {
         label: 'CPU Usage (%)',
-        data: data.getSystemStats.activeProcesses.map((proc) => proc.cpu),
+        data: data.getProcesses.map((proc) => proc.cpu),
         backgroundColor: [
           'rgba(255, 99, 132, 0.6)',
           'rgba(54, 162, 235, 0.6)',
@@ -50,13 +48,12 @@ function App() {
   return (
     <div className="App">
       <h1>System Check Dashboard</h1>
-      <p>CPU Usage: {data.getSystemStats.cpuUsage}%</p>
-      <p>Memory Usage: {data.getSystemStats.memoryUsage}%</p>
+      <p>CPU Usage: {data.getProcesses[0].cpu}%</p>
       <h2>Active Processes:</h2>
       <ul>
-        {data.getSystemStats.activeProcesses.map((process, index) => (
+        {data.getProcesses.map((process, index) => (
           <li key={index}>
-            {process.name}: CPU {process.cpu}% - Memory {process.memory}%
+            {process.name}: CPU {process.cpu}% - Memory {process.memVsz}%
           </li>
         ))}
       </ul>
