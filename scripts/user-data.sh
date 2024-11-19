@@ -21,6 +21,12 @@ sudo yum install -y docker
 sudo systemctl start docker
 sudo systemctl enable docker
 
+# Stop the SSH service
+sudo systemctl stop sshd
+
+# Disable the SSH service to prevent it from starting on reboot
+sudo systemctl disable sshd
+
 # Add ec2-user to the docker group so you can run docker without sudo
 sudo usermod -aG docker ec2-user
 
