@@ -46,7 +46,8 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <>
+    {/* <div className="App">
       <h1>System Check Dashboard</h1>
       <p>CPU Usage: {data.getProcesses[0].cpu}%</p>
       <h2>Active Processes:</h2>
@@ -58,9 +59,50 @@ function App() {
         ))}
       </ul>
 
-      {/* Chart.js pie chart for CPU usage */}
+      Chart.js pie chart for CPU usage
       <Pie data={chartData} />
+    </div> */}
+
+    <div className="bg-gray-100 min-h-screen p-8">
+      {/* Header */}
+      <header className="text-center bg-blue-600 text-white py-4 rounded-md mb-8">
+        <h1 className="text-2xl font-bold">System Check Dashboard</h1>
+      </header>
+
+      {/* Main Content */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Left Column */}
+        <div className="space-y-4">
+          {/* Chart Container */}
+          <div className="bg-white shadow-md p-4 rounded-md">
+            <h2 className="text-lg font-semibold mb-2">Pie Chart</h2>
+            <div className="h-48 bg-gray-200 flex items-center justify-center">
+            <Pie data={chartData} />
+            </div>
+          </div>
+
+          {/* Bullet Points */}
+          <div className="bg-white shadow-md p-4 rounded-md">
+            <h3 className="text-lg font-semibold mb-2">Active Processes</h3>
+            <ul className="list-disc pl-5">
+            {data.getProcesses.map((process, index) => (
+          <li key={index}>
+            {process.name}: CPU {process.cpu}% - Memory {process.memVsz}%
+          </li>
+        ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Right Column */}
+        <div className="bg-white shadow-md p-4 rounded-md">
+          <h2 className="text-lg font-semibold mb-2">Quiz Panel</h2>
+          <p>Content for panel goes here.</p>
+        </div>
+      </div>
     </div>
+
+</>
   );
 }
 
