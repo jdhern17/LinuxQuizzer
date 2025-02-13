@@ -174,7 +174,7 @@ Given that GraphQL queries are executed using POST requests and can carry comple
 
 - **Built-In GraphQL Schema Validation**: The Apollo Server will perform an initial layer of input validation by comparing the incoming request against the schema in the TypeDefs before being sent to the resolver functions. If the query structure does not match the schema (such as asking for a non-existing field), the request will be rejected. 
 
-- **GraphQL Shield**: While authentication and authorization mechanisms from GraphQL Shield will not be leveraged at this time, there are additional steps that can be taken such as blocking all other queries besides those explicitly allowed.
+- **GraphQL Shield**: While authentication and authorization mechanisms from GraphQL Shield will not be leveraged at this time, there are additional steps that can be taken such as blocking all other queries besides those explicitly allowed. Posterity consideration was made to use additional Shield features such as Mutation blocking and fallBackRule set to deny for overall protection, these did not immediately work as intended and introduced unnecessary complexity but if the schema increases in complexity and involves mutations it would be necessary to integrate Mutation logic and better understand the fallBackRule deny logic.
 
 - **GraphQL Armor & Depth Limiting**: GraphQL Depth Limiting, like complexity limiting, is set at the Apollo Server level to prevent excessive nesting that could degrade server performance. This helps ensure that limits to the level of nested objects are set and queries exceeding a set threshold are rejected prior to further processing. The GraphQL Armor package will be used for this.
 
