@@ -4,10 +4,10 @@ const app = express();
 const port = 3001;
 
 // Dummy system statistics
-app.get('/dummy', (req, res) => {
+app.get('/health', (req, res) => {
   res.json({
-message: 'This is a dummy response',
-simpleValue: 42,
+message: 'This is a healthy response',
+simpleValue: "healthy",
   });
 });
 
