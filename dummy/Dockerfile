@@ -1,5 +1,5 @@
 # Use the official Debian image for a more complete set of Unix utilities
-FROM debian:latest
+FROM ubuntu:22.04
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Install Node.js and npm
-RUN apt-get update && apt-get install -y nodejs npm procps
+RUN apt-get update && apt-get install -y nodejs npm
 
 # Install dependencies
 RUN npm install
