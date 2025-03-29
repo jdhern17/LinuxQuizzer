@@ -126,27 +126,23 @@ For the sake of the application, perimeter is defined as the edge protections fo
 
 ### **Layer 5: Host Security**
 
-- **Use of Docker Containers**: Docker isolates the application and its dependencies, ensuring a clean and controlled environment for both the frontend and backend.
-- **Dummy Container**: All system stats are gathered from a dummy container, isolating sensitive operations from public access.
-- **Package Audits**: Regular use of `npm audit` will monitor for package vulnerabilities, with prioritization based on severity and traffic levels. The low-traffic nature of this project allows flexibility in addressing non-critical issues.
-    - **Audit Severity Levels**:
-      | Severity  | Attention Level     |
-      |-----------|---------------------|
-      | Critical  | Immediate attention |
-      | High      | Immediate attention |
-      | Moderate  | Address if time allows, but monitor |
-      | Low       | Defer unless usage increases |
+- **Use of Containers**: Containers isolate the application and its dependencies, ensuring a clean and controlled environment for both the frontend and backend.
 - **Security Groups**: Strict security group rules restrict traffic to only necessary ports, minimizing exposure.
 - **OS Patching**: The EC2 instance will be refreshed monthly by tearing down the existing instance and spinning up a new one using the latest AMI, ensuring the latest security patches are applied.
 - **Platform Tool Version**: Given the low traffic, low visibility, and non-sensitive nature of the data, it is acceptable to rely on Yum for platform tools like Node.js, Docker and Git, provided any known security vulnerabilities are monitored. Documentation of current versions will be maintained in this **SECURITY.md** file, and explicit migration to newer versions will follow regular testing and validation using updated user data scripts.
     - **Version Table**:
       | Tool        | Latest Stable    | Dev Server | Live Server |
       |-------------|-------------------|--------------------|---------------------|
-      | **Node.js** | 18.x| 18.x | LTS Alpine (front/back) or apt-get via Debian (dummy) |
-      | **Docker**  | 24.x| Yum-managed | Yum-managed  |
+      | **Node.js** | 18.x| 18.x | N/A |
+      | **Container Runtime**  | | Docker via Yum | Containerd TBD  |
       | **Git**     | 2.x | Yum-managed  | N/A    |
       | **CodeServer** | 4.x| Installed via official URL | N/A                 |
 - **Regular Manual Review**: Version checking and OS AMI refreshes will occur manually at a regular monthly cadence to ensure that critical packages and components remain up-to-date.
+
+### **Layer 5b: Container Security**
+
+- **Dummy Container**: All system stats are gathered from a dummy container, isolating sensitive operations from public access.
+- **Run as Non-Root**: The containers are being configured to not run as root user. This is a critical security best practice aligned with least privilege to protect the app from privilege escalation and potentially destructive commands if an attacker exploits a vulnerability in the app.
 
 ---
 
@@ -157,6 +153,15 @@ For the sake of the application, perimeter is defined as the edge protections fo
 - **Logging**: Given the low-traffic nature of this project, logging will not be a major integration at this time. However, the MERN stack provides various logging features (e.g., Winston, Morgan) should they be required in future iterations.
 
 - **Authorization and Authentication**: Given the low sensitivity of the data (container statistics, at times dummy statistics), the current iteration of the project will not include authentication or authorization mechanisms. If deemed necessary, the MERN stack has a variety of offerings to integrate this securely, following the latest best practices.
+
+- **Package Audits**: Regular use of `npm audit` will monitor for package vulnerabilities, with prioritization based on severity and traffic levels. The low-traffic nature of this project allows flexibility in addressing non-critical issues.
+    - **Audit Severity Levels**:
+      | Severity  | Attention Level     |
+      |-----------|---------------------|
+      | Critical  | Immediate attention |
+      | High      | Immediate attention |
+      | Moderate  | Address if time allows, but monitor |
+      | Low       | Defer unless usage increases |
 
 ### **Back-End Security**
 
