@@ -1,5 +1,7 @@
 # LinuxQuizzer App
 
+The goal of this tool is to provide users a front-end to securely observe the health of a container.
+
 ## Functionality
 
 This project will initially use JavaScript package (`systeminformation`) and built-in module tools (`fs`) to deliver Linux commands with the following mappings and rationale:
