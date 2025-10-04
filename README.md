@@ -1,4 +1,4 @@
-# Quinux App
+# LinuxQuizzer App
 
 ## Functionality
 
