@@ -66,7 +66,7 @@ docker-compose up --build frontend
 
 7. **Access**
 
-Site can be reached at: http://<EC2-Public-IP>:5173/
+Site can be reached at: `http://<EC2-Public-IP>:5173/`
 
 ## Security Measures
 
