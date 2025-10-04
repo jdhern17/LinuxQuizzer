@@ -2,6 +2,8 @@
 
 The goal of this tool is to provide users a front-end to securely observe the health of a container.
 
+![Front-End](./Screenshot%202025-10-04%20170334.png)
+
 ## Functionality
 
 This project will initially use JavaScript package (`systeminformation`) and built-in module tools (`fs`) to deliver Linux commands with the following mappings and rationale:
@@ -15,7 +17,7 @@ This project will initially use JavaScript package (`systeminformation`) and bui
 | `free`          | `si.mem()`                                                                                                | Returns memory usage information, including total, used, and free memory, similar to the `free` command.| `si.mem()` provides memory statistics but may lack granularity, such as cache or buffer details from `free`.      |
 
 
-## Daily Build
+## Build Instructions
 
 This guide outlines how to set up an EC2 instance (currently t3.medium) running `code-server` with **HTTPS**, a **daily rotating password**, and restricted access to your personal IP address. This setup leverages a **self-signed certificate** to secure traffic and ensures only authorized users can access the server.
 
@@ -47,8 +49,24 @@ sudo chmod +x /usr/local/bin/docker-compose
 5. **Setup env for dev**
 
 ```
-REACT_APP_EC2_IP=<EC2-IP-here>
+VITE_APP_EC2_IP=<Public-EC2-IP-here>
 ```
+
+6. **Launch**
+
+```bash
+docker-compose up --build dummy
+```
+```bash
+docker-compose up --build backend
+```
+```bash
+docker-compose up --build frontend
+```
+
+7. **Access**
+
+Site can be reached at: http://<EC2-Public-IP>:5173/
 
 ## Security Measures
 

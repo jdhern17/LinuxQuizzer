@@ -97,7 +97,7 @@ function App() {
         {/* Right Column */}
         <div className="bg-white shadow-md p-4 rounded-md">
           <h2 className="text-lg font-semibold mb-2">Quiz Panel</h2>
-          <p>Content for panel goes here.</p>
+          <p>Welcome To LinuxQuizzer!</p>
         </div>
       </div>
     </div>
