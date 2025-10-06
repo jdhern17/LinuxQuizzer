@@ -1,4 +1,4 @@
-# Security-First Architecture for Quinux App
+# Security-First Architecture for LinuxQuizzer
 ## Table of Contents
 
 1. [Introduction](#introduction)
